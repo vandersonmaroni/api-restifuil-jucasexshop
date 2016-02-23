@@ -1,0 +1,1160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: verdana, arial;
+}
+
+.header {
+  width: 100%;
+  height: 3.125em;
+  background-color: #C2185B;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 9;
+}
+
+.logo {
+  width: 5.1875em;
+  height: 1.625em;
+}
+
+.logo img {
+  width: 5.1875em;
+  height: 1.625em;
+}
+
+.menu {
+  background-image: url(img/menu.png);
+  width: 1.625em;
+  height: 1.0625em;
+  margin: 0.9375em 0.625em 0 0;
+  display: block;
+}
+
+.separation {
+  width: 100%;
+  height: 3.125em;
+}
+
+.nav {
+  position: fixed;
+  z-index: 9;
+  margin-top: 3.125em;
+}
+
+.container-body {
+  width: 100%;
+  position: relative;
+}
+
+.container-banner img {
+  width: 100%;
+}
+
+.shadow-banner {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+ }
+
+.shadow-comment {
+  width: 94%;
+  height: 94%;
+  background-color: #000;
+  opacity: 0.6;
+  position: absolute;
+  z-index: 6;
+  top: 3%;
+  left: 3%;
+}
+
+.shadow-comment p {
+  color: #FFF;
+}
+
+.title-comment {
+  font-size: 0.8em;
+  z-index: 8;
+  text-align: center;
+  margin-top: 7%;
+  font-weight: bold;
+}
+
+.title-border {
+  border-bottom: 4px solid #C2185B;
+  width: 248px;
+  margin: 0 auto;
+}
+
+.comment {
+  font-size: 0.7em;
+  width: 83%;
+  margin: 5% auto 0;
+}
+
+.container-product, .container-service, .container-contact {
+  width: 100%;
+  padding: 10px;
+}
+
+.title-product, .title-service, .title-contact {
+  width: 100%;
+  background-color: #C2185B;
+  color: #FFF;
+  padding: 4% 5%;
+}
+
+.title-product h2, .title-service h2, .title-contact h2, .input input, .textarea textarea, .footer p {
+  text-align: left;
+  font-size: 1em;
+}
+
+.footer p {
+  padding: 0.5% 1.5%;
+  color: #FFF;
+  font-weight: bold !important;
+  text-align: 5%;
+}
+
+.button button {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.grid-products {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.product {
+  width: 100%;
+  background-color: #EEEEEE;
+  height: 50%;
+  box-shadow: 3px 1px 5px #777777;
+  margin-top: 15px;
+}
+
+.product img {
+  width: 93%;
+  border: 1px solid #C2185B;
+  margin: 3.5% 3.5%;
+}
+
+.product h3{
+  color: #526CFE;
+  font-size: 1em;
+  padding-left: 3.5%;
+  font-weight: normal;
+}
+
+.product p {
+  font-size: 0.8em;
+  padding: 3.5%
+}
+
+.separation-container {
+  border: 1px solid #526CFE;
+  margin: 15px 10px;
+}
+
+.grid-service {
+  width: 100%;
+}
+
+.service {
+  width: 100%;
+  background-color: #EEEEEE;
+  box-shadow: 3px 1px 5px #777777;
+  margin-top: 15px;
+}
+
+.text h3 {
+  color: #526CFE;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.image img {
+  width: 93%;
+  margin: 3.5% 3.5%;
+}
+
+.small-text-service {
+  font-size: 0.8em;
+}
+
+.big-text-service {
+  display: none;
+}
+
+.grid-contact {
+  width: 100%;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  margin-top: 15px;
+  border: 1px solid #C2185B;
+  box-shadow: 2px 1px 5px #777777;
+}
+
+.input input {
+  height: 38px;
+  line-height: 40px;
+  padding-left: 20px;
+  border: 0;
+  width: 100%;
+}
+
+.textarea {
+  width: 100%;
+  height: 130px;
+  margin-top: 15px;
+  border: 1px solid #C2185B;
+  box-shadow: 2px 1px 5px #777777;
+}
+
+.textarea textarea {
+  height: 128px;
+  line-height: 60px;
+  padding-left: 20px;
+  border: 0;
+  width: 100%;
+}
+
+.button {
+  margin-top: 15px;
+  height: 38px;
+  width: 100%;
+}
+
+.button button {
+  background-color: #C2185B;
+  cursor: pointer;
+  border: 0;
+  color: #FFF;
+  height: 38px;
+  width: 100%;
+}
+
+.map {
+  display: none;
+}
+
+.footer {
+  height: 5%;
+  width: auto;
+  background-color: #C2185B;
+  margin-top: 40px;
+}
+
+@media (max-width: 35.625em) { /*570px*/
+
+  .container-banner {
+    height: 170px;
+  }
+
+  .container-banner img {
+    height: 170px;
+  }
+
+}
+
+@media (min-width: 35.625em) { /*570px*/
+
+  .title-comment {
+    font-size: 0.9em;
+  }
+
+  .title-border {
+    width: 279px;
+  }
+
+  .comment {
+    font-size: 0.8em;
+  }
+
+  .container-product, .container-service {
+    margin-top: -3px;
+  }
+
+  .input-duo {
+    width: 49%;
+  }
+
+  .button {
+    width: 20%;
+    margin-left: 80%;
+  }
+
+}
+
+@media (min-width: 38.25em) { /*612px*/
+
+  .product, .service {
+    width: 49%;
+    background-color: #EEEEEE;
+    box-shadow: 3px 1px 5px #777777;
+    margin-top: 10px;
+  }
+
+  .product {
+    height: 350px;
+  }
+
+  .product img {
+    border: 1px solid #C2185B;
+  }
+
+  .product img, .service img {
+    width: 93%;
+    margin: 3.5% 3.5%;
+  }
+
+  .product h3 {
+    color: #526CFE;
+    font-size: 1em;
+    padding-left: 3.5%;
+    font-weight: normal;
+  }
+
+  ..service h3 {
+    padding: 3.5%;
+  }
+
+}
+
+@media (min-width: 40.625em) { /*650px*/
+
+  .title-comment {
+    font-size: 1em;
+  }
+
+  .title-border {
+    width: 309px;
+  }
+
+  .comment {
+    font-size: 0.9em;
+  }
+
+  .title-product h2, .title-service h2, .title-contact h2, .input input, .textarea textarea, .footer p {
+    font-size: 1.1em;
+  }
+
+  .button button {
+    font-size: 1.1em;
+  }
+
+}
+
+@media (min-width: 45em) { /*720px*/
+
+  .title-comment {
+    font-size: 1.1em;
+  }
+
+  .title-border {
+    width: 340px;
+  }
+
+  .comment {
+    font-size: 1em;
+  }
+
+}
+
+@media (max-width: 49.9375em) { /*799px*/
+
+  .logo {
+    padding: 0.75em;
+  }
+
+  .nav {
+    width: 100%;
+    background-color: #C2185B;
+    opacity: 0.8;
+    height: 7.125em;
+    display: none;
+  }
+
+  .nav ul {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .nav li {
+    list-style: none;
+    padding: 0.25em 0;
+  }
+
+  .nav li:focus {
+    opacity: 1;
+  }
+
+  .nav li a {
+    text-decoration: none;
+    color: #FFF;
+  }
+
+  .shadow-comment {
+    top: 2%;
+  }
+
+  .grid-service {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .small-text-service {
+    padding: 3.5%;
+  }
+
+  .text h3 {
+    padding-left: 3.5%;
+  }
+
+}
+
+@media (min-width: 50em) { /*800px*/
+
+  .header {
+    height: 4.125em;
+    position: fixed;
+  }
+
+  .logo {
+    width: 10.1875em;
+    height: 2.625em;
+    position: fixed;
+    padding: 0.8em 0 0 0.9em;
+  }
+
+  .logo img {
+    width: 10.1875em;
+    height: 2.625em;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 1.25em;
+    width: 100%;
+    display: block !important;
+    height: 4.125em;
+    margin-top: 0;
+  }
+
+  .nav ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    line-height: 3.700em;
+  }
+
+  .nav li {
+    padding-left: 0.5em;
+  }
+
+  .nav li a {
+    text-decoration: none;
+    font-style: normal;
+    color: #FFF;
+    font-size: 0.8em;
+  }
+
+  .nav li a:hover, .selected {
+    border-bottom: 0.2em solid #FFF;
+    padding-bottom: 0.425em;
+  }
+
+  .separation {
+    height: 4.125em;
+  }
+
+  .shadow-banner {
+    height: 99%;
+  }
+
+  .shadow-comment {
+    height: 60%;
+    width: 35%;
+    margin: 9% 61% 3%;
+  }
+
+  .title-comment {
+    font-size: 0.8em;
+  }
+
+  .title-border {
+    width: 248px;
+  }
+
+  .comment {
+    font-size: 0.7em;
+  }
+
+  .container-product, .container-service, .container-contact {
+    padding: 40px 40px 0 40px;
+  }
+
+  .title-product, .title-contact {
+    padding: 0.6% 1.5%;
+    width: 36%;
+  }
+
+  .title-service {
+    padding: 0.6% 1.5%;
+    width: 40%;
+  }
+
+  .title-product h2, .title-service h2, .title-contact h2, .input input, .textarea textarea, .footer p {
+    font-weight: normal;
+    font-size: 1.3em;
+  }
+
+  .button button {
+    font-size: 1.3em;
+  }
+
+  .border-title, .border-title-contact {
+    border-bottom: 3px solid #C2185B;
+    width: 44%;
+    margin-top: -3px;
+  }
+
+  .border-title-service {
+    border-bottom: 3px solid #C2185B;
+    width: 46%;
+    margin-top: -3px;
+  }
+
+  .product {
+    width: 32%;
+    height: 333px;
+    margin-top: 40px;
+  }
+
+  .product img {
+    width: 95%;
+    margin: 2.5% 2.5%;
+  }
+
+  .product h3 {
+    font-size: 1.3em;
+    padding-left: 2.5%;
+  }
+
+  .product p {
+    padding-left: 2.5%;
+    font-size: 0.9em;
+  }
+
+  .separation-container {
+    margin: 15px 40px;
+  }
+
+  .grid-service {
+    width: 100%;
+  }
+
+  .service {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    margin-top: 40px;
+  }
+
+  .image {
+    width: 100%;
+  }
+
+  .image img {
+    margin: 4.5% 3.5%;
+  }
+
+  .text {
+    margin-top: 0.5%;
+  }
+
+  .text h3 {
+    font-size: 1.3em;
+    padding: 1.5%;
+  }
+
+  .small-text-service {
+    font-size: 0.9em;
+    padding: 1.5%;
+  }
+
+  .grid-contact {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form {
+    width: 44%;
+  }
+
+  .input {
+    height: 42px;
+  }
+
+  .input input {
+    height: 40px;
+  }
+
+  .textarea {
+    height: 122px;
+  }
+
+  .textarea textarea {
+    height: 120px;
+  }
+
+  .input-duo {
+    width: 100%;
+  }
+
+  .button {
+    width: 30%;
+    margin-left: 70%;
+  }
+
+  .map {
+    width: 51%;
+    display: block;
+    margin-top: 15px;
+  }
+
+  .map img{
+    width: 100%;
+    height: 340px;
+  }
+
+}
+
+@media (min-width: 55em) { /*880px*/
+
+  .nav li a {
+    font-size: 0.9em;
+  }
+
+  .title-product, .title-contact {
+    width: 34%;
+  }
+
+  .border-title, .border-title-contact {
+    width: 42%;
+  }
+
+  .title-service {
+    width: 36%;
+  }
+
+  .border-title-service {
+    width: 44%;
+  }
+
+  .image img {
+      margin: 3.5% 3.5%;
+   }
+
+  .form {
+    width: 42%;
+  }
+
+  .map {
+    width: 54%;
+  }
+
+}
+
+@media (min-width: 59.625em) { /*954px*/
+
+  .nav li a {
+    font-size: 1em;
+  }
+
+  .title-comment {
+    font-size: 0.9em;
+  }
+
+  .title-border {
+    width: 279px;
+  }
+
+  .comment {
+    font-size: 0.8em;
+  }
+
+  .title-product h2, .title-product h2, .title-contact h2, .input input, .textarea textarea, .footer p {
+    font-size: 1.4em;
+  }
+
+  .button button {
+    font-size: 1.4em;
+  }
+
+  .product h3 {
+    font-size: 1.4em;
+  }
+
+  .product p {
+    font-size: 0.9em;
+  }
+
+  .text h3 {
+    font-size: 1.4em;
+  }
+
+  .small-text-service {
+    font-size: 0.9em;
+  }
+
+  .input {
+    height: 44px;
+  }
+
+  .input input {
+    height: 42px;
+  }
+
+  .textarea {
+    height: 124px;
+  }
+
+  .textarea textarea {
+    height: 122px;
+  }
+
+  .map img{
+    height: 345px
+  }
+
+}
+
+@media (min-width: 64em) { /*1024px*/
+
+  .header, .separation, .nav {
+    height: 5.225em;
+  }
+
+  .logo {
+    padding: 1.375em 0 0 1.5em;
+  }
+
+  .nav {
+    right: 1.25em;
+  }
+
+  .nav ul {
+    line-height: 4.600em;
+  }
+
+  .nav li {
+    padding-left: 0.8em;
+  }
+
+  .nav li a {
+    font-size: 1.1em;
+  }
+
+  .nav li a:hover, .selected {
+    border-bottom: 0.2em solid #FFF;
+    padding-bottom: 0.525em;
+  }
+
+  .title-comment {
+    font-size: 1em;
+  }
+
+  .title-border {
+    width: 309px;
+  }
+
+  .comment {
+    font-size: 0.9em;
+  }
+
+  .title-product h2, .title-service h2, .text h3, .product h3, .title-contact h2, .input input, .textarea textarea, .footer p {
+    font-size: 1.5em;
+  }
+
+  .button button {
+    font-size: 1.5em;
+  }
+
+  .product {
+    width: 31%;
+    height: 375px;
+  }
+
+  .product p, .small-text-service {
+    font-size: 1em;
+  }
+
+  .input {
+    height: 44px;
+  }
+
+  .input input {
+    height: 42px;
+  }
+
+  .textarea {
+    height: 124px;
+  }
+
+  .textarea textarea {
+    height: 122px;
+  }
+
+}
+
+@media (min-width: 67.5em) { /*1080px*/
+
+  .title-product, .title-contact {
+    width: 32%;
+  }
+
+  .border-title, .border-title-contact {
+    width: 40%;
+  }
+
+  .title-service {
+    width: 34%;
+  }
+
+  .border-title-service {
+    width: 42%;
+  }
+
+  .product {
+    height: 55%;
+  }
+
+}
+
+@media (min-width: 71.25em) { /*1140px*/
+
+  .title-comment {
+    font-size: 1.1em;
+  }
+
+  .title-border {
+    width: 342px;
+  }
+
+  .comment {
+    font-size: 1em;
+  }
+
+  .title-product h2, .title-service h2, .product h3, .text h3, .title-contact h2, .input input, .textarea textarea, .footer p {
+    font-size: 1.6em;
+  }
+
+  .button button {
+    font-size: 1.6em;
+  }
+
+  .title-product, .title-contact {
+    width: 32%;
+  }
+
+  .border-title, .border-title-contact {
+    width: 40%;
+  }
+
+  .title-service {
+    width: 34%;
+  }
+
+  .border-title-service {
+    width: 42%;
+  }
+
+  .product p, .small-text-service, .big-text-service {
+    font-size: 1.1em;
+  }
+
+  .small-text-service {
+    display: none;
+  }
+
+  .big-text-service {
+    display: block;
+    font-size: 1.1em;
+    padding: 1.5%;
+  }
+
+  .image {
+    width: 300%;
+  }
+
+  .image img {
+    height: 256px;
+  }
+
+  .input {
+    height: 46px;
+  }
+
+  .input input {
+    height: 44px;
+  }
+
+  .textarea {
+    height: 126px;
+  }
+
+  .textarea textarea {
+    height: 124px;
+  }
+
+  .map img {
+    height: 356px;
+  }
+
+}
+
+
+@media (min-width: 75em) { /*1200px*/
+
+  .nav li {
+    padding-left: 1.2em;
+  }
+
+  .nav li a {
+    font-size: 1.2em;
+  }
+
+  .title-comment {
+    font-size: 1.1em;
+  }
+
+  .title-border {
+    width: 342px;
+  }
+
+  .comment {
+    font-size: 0.9em;
+  }
+
+  .title-product, .title-contact {
+    width: 30%;
+  }
+
+  .border-title, .border-title-contact {
+    width: 38%;
+  }
+
+  .title-service {
+    width: 32%;
+  }
+
+  .border-title-service {
+    width: 40%;
+  }
+
+  .form {
+    width: 38%;
+  }
+
+  .map {
+    width: 58%;
+  }
+
+  .map {
+    height: 350px;
+  }
+
+}
+
+@media (min-width: 79.375em) { /*1270px*/
+
+  .title-comment {
+    font-size: 1.2em;
+  }
+
+  .title-border {
+    width: 373px;
+  }
+
+  .comment {
+    font-size: 1em;
+  }
+
+  .title-product h2, .title-service h2, .text h3, .title-contact h2, .input input, .textarea textarea, .footer p {
+    font-size: 1.7em;
+  }
+
+  .button button {
+    font-size: 1.7em;
+  }
+
+  .product h3, .service h3 {
+    font-size: 1.7em;
+  }
+
+  .product p, .big-text-service {
+    font-size: 1.1em;
+  }
+
+  .input {
+    height: 52px;
+  }
+
+  .input input {
+    height: 50px;
+  }
+
+  .textarea {
+    height: 132px;
+  }
+
+  .textarea textarea {
+    height: 130px;
+  }
+
+  .map img {
+    height: 380px;
+  }
+
+}
+
+@media (min-width: 84.375em) { /*1350px*/
+
+  .header, .separation, .nav {
+    height: 5.4375em;
+  }
+
+  .logo {
+    padding: 1.375em 0 0 1.5em;
+  }
+
+  .logo img {
+    width: 10.1875em;
+    height: 2.625em;
+  }
+
+  .nav {
+    right: 1.95em;
+  }
+
+  .nav ul {
+    line-height: 4.7125em;
+  }
+
+  .nav li {
+    padding-left: 1.425em;
+  }
+
+  .nav li a {
+    font-size: 1.25em;
+  }
+
+  .title-comment {
+    font-size: 1.375em;
+  }
+
+  .title-border {
+    width: 430px;
+  }
+
+  .comment {
+    font-size: 1.125em;
+  }
+
+  .title-product h2, .title-service h2, .product h3, .text h3, .title-contact h2, .input input, .textarea textarea {
+    font-size: 1.8em;
+  }
+
+  .button button {
+    font-size: 1.8em;
+  }
+
+  .title-product, .title-contact {
+    width: 29%;
+  }
+
+  .border-title, .border-title-contact {
+    width: 35%;
+  }
+
+  .product p, .big-text-service {
+    font-size: 1.1em;
+  }
+
+  .form {
+    width: 35%;
+  }
+
+  .input {
+    height: 58px;
+  }
+
+  .input input {
+    height: 56px;
+  }
+
+  .textarea {
+    height: 137px;
+  }
+
+  .textarea textarea {
+    height: 135px;
+  }
+
+  .map img {
+    height: 400px;
+  }
+
+}
+
+@media (min-width: 100em) { /*1600px*/
+
+  .header, .separation, .nav{
+    height: 5.7375em;
+  }
+
+  .logo {
+    padding: 1.675em 0 0 1.5em;
+  }
+
+  .nav ul {
+    line-height: 5.2125em;
+  }
+
+  .nav li a {
+    font-size: 1.45em;
+  }
+
+}

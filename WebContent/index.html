@@ -1,0 +1,122 @@
+  <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Sex Shop do Juca</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <img src="img/logo.jpg" alt="Sex Shop Juca">
+    </div>
+    <div class="menu" onclick="menu()"></div>
+  </header>
+  <nav class="nav" id="nav">
+    <ul>
+      <li><a href="#" class="selected">Home</a></li>
+      <li><a href="#">Produto</a></li>
+      <li><a href="#">Serviço</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+  </nav>
+  <div class="separation"></div>
+  <section class="container-body">
+    <section class="container-banner">
+      <img src="" alt="Banner" id="banner">
+      <div class="shadow-banner"></div>
+      <div class="shadow-comment">
+        <p class="title-comment" id="tituloDestaque">Novo consolo do Sex Shop do Juca</p>
+        <div class="title-border"></div>
+        <p class="comment" id="commentDestaque"></p>
+      </div>
+    </section>
+  </section>
+  <section class="container-product">
+      <div class="title-product">
+        <h2>Produtos em Destaque</h2>
+      </div>
+      <div class="border-title"></div>
+      <div class="grid-products">
+          <div class="product">
+            <img src="" alt="Anel Peniano do Juca" id="img_1">
+            <h3 id="titulo_1"></h3>
+            <p id="descricao_1"></p>
+          </div>
+          <div class="product">
+            <img src="" alt="Boneca inflável do Juca" id="img_2">
+            <h3 id="titulo_2"></h3>
+            <p id="descricao_2"></p>
+          </div>
+          <div class="product">
+            <img src="" alt="Óleo anestésico do Juca" id="img_3">
+            <h3 id="titulo_3"></h3>
+            <p id="descricao_3"></p>
+          </div>
+      </div>
+  </section>
+  <div class="separation-container"></div>
+  <section class="container-service">
+    <div class="title-service">
+      <h2>Conheça nossos serviços</h2>
+    </div>
+    <div class="border-title-service"></div>
+    <div class="grid-service">
+      <div class="service">
+        <div class="image">
+          <img src="" alt="Visita a domicílio" id="img_servico_1">
+        </div>
+        <div class="text">
+          <h3 id="titulo_servico_1"></h3>
+          <p class="small-text-service" id="descricao_servico_pequena_1"></p>
+          <p class="big-text-service" id="descricao_servico_grande_1"></p>
+        </div>
+      </div>
+      <div class="service">
+        <div class="image">
+          <img src="" alt="Messagem do Juca" id="img_servico_2">
+        </div>
+        <div class="text">
+          <h3 id="titulo_servico_2"></h3>
+          <p class="small-text-service" id="descricao_servico_pequena_2"></p>
+          <p class="big-text-service" id="descricao_servico_grande_2"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="separation-container"></div>
+  <section class="container-contact">
+    <div class="title-contact">
+      <h2>Entre em contato</h2>
+    </div>
+    <div class="border-title-contact"></div>
+    <div class="grid-contact">
+      <div class="form">
+        <div class="input input-duo">
+          <input type="text" placeholder="Nome">
+        </div>
+        <div class="input input-duo">
+          <input type="text" placeholder="Email">
+        </div>
+        <div class="input">
+          <input type="text" placeholder="Assunto">
+        </div>
+        <div class="textarea">
+          <textarea cols="30" rows="10" placeholder="Mensagem"></textarea>
+        </div>
+        <div class="button">
+          <button>Enviar</button>
+        </div>
+      </div>
+      <div class="map">
+        <img src="img/mapa.jpg" alt="Map">
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <p>Niku 2010</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
