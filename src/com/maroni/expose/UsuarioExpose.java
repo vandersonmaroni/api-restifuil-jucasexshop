@@ -16,16 +16,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.maroni.model.Produto;
-import com.maroni.service.ProdutoService;
+import com.maroni.model.Usuario;
+import com.maroni.service.UsuarioService;
 
-@Path("/produtos")
+@Path("usuarios")
 @RequestScoped
-public class ProdutoExpose implements Serializable {
-	private static final long serialVersionUID = -8432578069796801804L;
+public class UsuarioExpose implements Serializable{
+	private static final long serialVersionUID = 1614835852737817622L;
 
 	@Inject
-	private ProdutoService service;
+	private UsuarioService service;
 	
 	/**
 	 * @author Vanderson Maroni | 17/02/2016
@@ -33,23 +33,23 @@ public class ProdutoExpose implements Serializable {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Produto> buscarTodos(){
+	public List<Usuario> buscarTodos(){
 		return service.findAll();
 	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response cadastrar(Produto produto){
-		service.save(produto);
-		return Response.ok(produto, MediaType.APPLICATION_JSON).build();
+	public Response cadastrar(Usuario usuario){
+		service.save(usuario);
+		return Response.ok(usuario, MediaType.APPLICATION_JSON).build();
 	}
 	
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response alterar(@PathParam("id") String id, Produto produto) {
-		service.update(produto);
-		return Response.ok(produto, MediaType.APPLICATION_JSON).build();
+	public Response alterar(@PathParam("id") String id, Usuario usuario) {
+		service.update(usuario);
+		return Response.ok(usuario, MediaType.APPLICATION_JSON).build();
 	}
 	
 	@DELETE

@@ -10,16 +10,15 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the destaque database table.
+ * The persistent class for the usuario database table.
  * 
  */
-
-@XmlType(name = "Destaque", propOrder = { "id", "titulo", "descricao", "imagem", "status", "dataCadastro" })
+@XmlType(name = "Usuario", propOrder = { "id", "nome", "login", "senha", "token", "status", "dataCadastro" })
 @XmlRootElement
 @Entity
-@Table(name="destaque")
-public class Destaque implements Serializable {
-	private static final long serialVersionUID = -2009479346562431055L;
+@Table(name="usuario")
+public class Usuario implements Serializable {
+	private static final long serialVersionUID = -1299322741559373520L;
 
 	@Id
 	private int id;
@@ -27,16 +26,17 @@ public class Destaque implements Serializable {
 	@Column(name="data_cadastro")
 	private Timestamp dataCadastro;
 
-	@Lob
-	private String descricao;
+	private String login;
 
-	private String imagem;
+	private String nome;
+
+	private String senha;
 
 	private byte status;
 
-	private String titulo;
+	private String token;
 
-	public Destaque() {
+	public Usuario() {
 	}
 
 	public int getId() {
@@ -55,20 +55,28 @@ public class Destaque implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public String getDescricao() {
-		return this.descricao;
+	public String getLogin() {
+		return this.login;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
-	public String getImagem() {
-		return this.imagem;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSenha() {
+		return this.senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public byte getStatus() {
@@ -79,12 +87,12 @@ public class Destaque implements Serializable {
 		this.status = status;
 	}
 
-	public String getTitulo() {
-		return this.titulo;
+	public String getToken() {
+		return this.token;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	/* (non-Javadoc)
@@ -109,7 +117,7 @@ public class Destaque implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Destaque other = (Destaque) obj;
+		Usuario other = (Usuario) obj;
 		if (id != other.id)
 			return false;
 		return true;

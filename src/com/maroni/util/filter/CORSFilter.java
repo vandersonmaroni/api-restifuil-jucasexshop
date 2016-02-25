@@ -1,21 +1,26 @@
 package com.maroni.util.filter;
 
-import java.io.IOException;
+import java.io.Serializable;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.ext.Provider;
+import javax.inject.Singleton;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
 
-@Provider
-public class CORSFilter implements ContainerResponseFilter {
-    @Override
-    public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) throws IOException {
-        responseContext.getHeaders().putSingle("Access-Control-Allow-Origin", "*");
-        responseContext.getHeaders().putSingle("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-        String reqHeader = requestContext.getHeaderString("Access-Control-Request-Headers");
-        if (reqHeader != null && reqHeader != "") {
-            responseContext.getHeaders().putSingle("Access-Control-Allow-Headers", reqHeader);
-        }
-    }
+import com.sun.jersey.spi.container.ContainerRequest;
+import com.sun.jersey.spi.container.ContainerRequestFilter;
+
+@Singleton
+public class CORSFilter implements ContainerRequestFilter, Serializable {
+	private static final long serialVersionUID = -1234848483487540236L;
+
+	@Override	
+	public ContainerRequest filter(ContainerRequest request) {
+		
+		if (!request.getHeaderValue(HttpHeaders.AUTHORIZATION).equals("vanderson")) {
+			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+		}
+		return request;
+	}
+
 }

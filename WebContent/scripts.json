@@ -42,3 +42,12 @@ SERVICOS
     "status": "1",
     "descricao": "Lorem ipsum dolor sit amet, consectetur. adipiscing elit. Curabitur non lobortis mi.adipiscing elit. Curabitur non lobortis mi.adipiscing elit. Curabitur non lobortis mi. Maecenas non interdum tortor. Phasellus et augue lacinia, luctus mauris eget, interdum dui. Aliquam erat volutpat.Lorem ipsum dolor sit amet, consectetur. adipiscing elit. Curabitur non lobortis mi.adipiscing elit. Curabitur non lobortis mi.adipiscing elit. Curabitur non lobortis mi. Maecenas non interdum tortor. Phasellus et augue lacinia, luctus mauris eget, interdum dui. Aliquam erat volutpat"
 }
+
+USUARIO
+
+{
+    "nome": "vanderson",
+    "login": "vanderson",
+    "senha": "123456",
+    "status": "1"
+}

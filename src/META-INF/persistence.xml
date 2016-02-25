@@ -10,6 +10,7 @@
 		<class>com.maroni.model.Destaque</class>
 		<class>com.maroni.model.Produto</class>
 		<class>com.maroni.model.Servico</class>
+		<class>com.maroni.model.Usuario</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

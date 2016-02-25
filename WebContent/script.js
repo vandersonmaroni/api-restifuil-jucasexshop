@@ -23,6 +23,7 @@ var urlServicos = "http://localhost:8080/api-restiful/api/servicos";
 var html = "";
 
 xmlhttp.open("GET", urlDestaques, true);
+xmlhttp.setRequestHeader("Authorization", "vanderson");
 
 xmlhttp.onload = function(e) {
 	var obj = JSON.parse(xmlhttp.responseText);
@@ -36,6 +37,7 @@ xmlhttp.onload = function(e) {
 
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", urlProdutos, true);
+	xmlhttp.setRequestHeader("Authorization", "vanderson");
 	xmlhttp.onload = function(e) {
 
 		var obj = JSON.parse(xmlhttp.responseText);
@@ -51,6 +53,7 @@ xmlhttp.onload = function(e) {
 
 		xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("GET", urlServicos, true);
+		xmlhttp.setRequestHeader("Authorization", "vanderson");
 		html = "";
 		xmlhttp.onload = function(e) {
 			var obj = JSON.parse(xmlhttp.responseText);
