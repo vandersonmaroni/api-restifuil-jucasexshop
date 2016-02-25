@@ -14,10 +14,11 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 public class CORSFilter implements ContainerRequestFilter, Serializable {
 	private static final long serialVersionUID = -1234848483487540236L;
 
+	private String authorization = "vanderson";
+	
 	@Override	
 	public ContainerRequest filter(ContainerRequest request) {
-		
-		if (!request.getHeaderValue(HttpHeaders.AUTHORIZATION).equals("vanderson")) {
+		if (!authorization.equals(request.getHeaderValue(HttpHeaders.AUTHORIZATION))) {
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
 		return request;
