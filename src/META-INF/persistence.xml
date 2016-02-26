@@ -6,7 +6,7 @@
 		
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
       	<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
-		<jta-data-source>java:/apiRestiful</jta-data-source>
+		<jta-data-source>java:/apiRestful</jta-data-source>
 		<class>com.maroni.model.Destaque</class>
 		<class>com.maroni.model.Produto</class>
 		<class>com.maroni.model.Servico</class>

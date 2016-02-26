@@ -1,12 +1,16 @@
 package com.maroni.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import java.sql.Timestamp;
+import org.json.JSONObject;
 
 
 /**
@@ -37,6 +41,11 @@ public class Usuario implements Serializable {
 	private String token;
 
 	public Usuario() {
+	}
+	public Usuario(JSONObject usuarioJSON) {
+		this.id = Integer.parseInt(String.valueOf(usuarioJSON.get("idUsuario")));
+		this.login = String.valueOf(usuarioJSON.get("username"));
+		this.senha = String.valueOf(usuarioJSON.get("password"));
 	}
 
 	public int getId() {
@@ -121,5 +130,12 @@ public class Usuario implements Serializable {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+	
+	public String toJSON() {
+		JSONObject usuario = new JSONObject();
+		usuario.put("username", login);
+		usuario.put("password", senha);
+		return usuario.toString();
 	}
 }
