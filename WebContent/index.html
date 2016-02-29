@@ -19,7 +19,7 @@
 			<li><a href="#" class="selected">Home</a></li>
 			<li><a href="#">Produto</a></li>
 			<li><a href="#">Serviço</a></li>
-			<li><a href="#">Login</a></li>
+			<li><a href="#" onclick="abrirModal()">Login</a></li>
 			<li><a href="#">Contato</a></li>
 		</ul>
 	</nav>
@@ -27,17 +27,18 @@
 	<div class="login" id="login">
 		<div class="topo-login">
 			<p>Login</p>
-			<div class="close-modal" id="close-modal">x</div>
+			<a class="close-modal" id="close-modal" onclick="fecharModal()">x</a>
 		</div>
 		<div class="center-login">
-			<div class="input input-modal input-usuario">
-				<input type="text" name="usuario" id="usuario" placeholder="usuário" />
-			</div>
-			<div class="input input-modal">
-				<input type="text" name="senha" id="senha" placeholder="senha" />
-			</div>
+				<div class="input input-modal input-usuario">
+					<input type="text" name="usuario" id="usuario"
+						placeholder="usuário" value="" />
+				</div>
+				<div class="input input-modal">
+					<input type="password" name="senha" id="senha" placeholder="senha" value="" />
+				</div>
 			<div class="button button-modal">
-				<button id="login">Login</button>
+				<button id="login" onclick="logar()">Login</button>
 			</div>
 		</div>
 	</div>

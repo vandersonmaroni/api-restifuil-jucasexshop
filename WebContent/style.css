@@ -266,6 +266,7 @@
 	position: fixed;
 	z-index: 9999;
 	opacity: 0.7;
+	display: none;
 }
 
 .login {
@@ -278,6 +279,7 @@
 	left: 50%;
 	margin-top: -225px;
 	margin-left: -400px;
+	display: none;
 }
 
 .topo-login {
@@ -335,7 +337,11 @@
 }
 
 .button-modal button{
-	font-size: 1.5em !important;
+	font-size: 1.1em !important;
+    line-height: 50px !important;
+    margin-top: 20px;
+    font-weight: normal;
+	height: 50px;
 }
 
 .footer {

@@ -27,7 +27,7 @@ public class ApiRestFilter implements ContainerRequestFilter, Serializable {
 	public ContainerRequest filter(ContainerRequest request) {
 		String token = request.getHeaderValue("authorization");
 		String usuario = null;
-		
+
 		if (request.getMethod().equals(MethodType.POST.name())) {
 			return request;
 		}

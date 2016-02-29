@@ -47,7 +47,6 @@ public class UsuarioService implements Serializable {
 	}
 
 	public Usuario buscarPorLoginSenha(String login, String senha) {
-		Usuario usuario = dao.buscarPorLoginSenha(login, senha);
-		return usuario;
+		return dao.buscarPorLoginSenha(login, senha);
 	}
 }

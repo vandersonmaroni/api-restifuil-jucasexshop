@@ -1,4 +1,4 @@
-var i = 0;
+var base_url = "http://localhost:8080/api-restiful/api";
 
 function menu() {
 
@@ -15,20 +15,45 @@ function menu() {
 }
 
 function abrirModal() {
-	document.getElementById("modal-login").style.display = "block";
+	document.getElementById("modal-fundo").style.display = "block";
+	document.getElementById("login").style.display = "block";
 	document.body.style.overflow = 'hidden';
 }
 
 function fecharModal() {
+	document.getElementById("modal-fundo").style.display = "none";
+	document.getElementById("login").style.display = "none";
 	document.body.style.overflow = 'auto';
+}
+
+function logar() {
+	var username = document.getElementById("usuario").value;
+	var password = document.getElementById("senha").value;
+
+	if (usuario == '' || senha == '') {
+		console.log("Usuario inválido");
+	} else {
+		var json = '{"usuario":"' + username + '", "senha":"' + password + '"}';
+		console.log(json);
+		var xmlhttp = new XMLHttpRequest();
+		var url = base_url + "/login";
+		xmlhttp.open("POST", url, true);
+		xmlhttp.setRequestHeader("Content-type", "application/json");
+
+		xmlhttp.onload = function(e) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			sessionStorage.setItem('token', obj.token);
+		}
+		xmlhttp.send(json);
+	}
 }
 
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.withCredentials = false;
 
-var urlDestaques = "http://localhost:8080/api-restiful/api/destaques";
-var urlProdutos = "http://localhost:8080/api-restiful/api/produtos";
-var urlServicos = "http://localhost:8080/api-restiful/api/servicos";
+var urlDestaques = base_url + "/destaques";
+var urlProdutos = base_url + "/produtos";
+var urlServicos = base_url + "/servicos";
 var html = "";
 
 xmlhttp.open("GET", urlDestaques, true);
