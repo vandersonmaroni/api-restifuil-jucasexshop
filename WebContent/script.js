@@ -14,6 +14,15 @@ function menu() {
 
 }
 
+function abrirModal() {
+	document.getElementById("modal-login").style.display = "block";
+	document.body.style.overflow = 'hidden';
+}
+
+function fecharModal() {
+	document.body.style.overflow = 'auto';
+}
+
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.withCredentials = false;
 

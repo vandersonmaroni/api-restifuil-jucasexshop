@@ -1,81 +1,101 @@
-  <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Sex Shop do Juca</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
+<meta charset="UTF-8">
+<title>Sex Shop do Juca</title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
-  <header class="header">
-    <div class="logo">
-      <img src="img/logo.jpg" alt="Sex Shop Juca">
-    </div>
-    <div class="menu" onclick="menu()"></div>
-  </header>
-  <nav class="nav" id="nav">
-    <ul>
-      <li><a href="#" class="selected">Home</a></li>
-      <li><a href="#">Produto</a></li>
-      <li><a href="#">Serviço</a></li>
-      <li><a href="#">Contato</a></li>
-    </ul>
-  </nav>
-  <div class="separation"></div>
-  <section class="container-body">
-    <section class="container-banner">
-      <img src="" alt="Banner" id="banner">
-      <div class="shadow-banner"></div>
-      <div id="shadow-comment" class="shadow-comment"></div>
-    </section>
-  </section>
-  <section class="container-product">
-      <div class="title-product">
-        <h2>Produtos em Destaque</h2>
-      </div>
-      <div class="border-title"></div>
-      <div class="grid-products" id="grid-products"></div>
-  </section>
-  <div class="separation-container"></div>
-  <section class="container-service">
-    <div class="title-service">
-      <h2>Conheça nossos serviços</h2>
-    </div>
-    <div class="border-title-service"></div>
-    <div class="grid-service" id="grid-service"></div>
-  </section>
-  <div class="separation-container"></div>
-  <section class="container-contact">
-    <div class="title-contact">
-      <h2>Entre em contato</h2>
-    </div>
-    <div class="border-title-contact"></div>
-    <div class="grid-contact">
-      <div class="form">
-        <div class="input input-duo">
-          <input type="text" placeholder="Nome">
-        </div>
-        <div class="input input-duo">
-          <input type="text" placeholder="Email">
-        </div>
-        <div class="input">
-          <input type="text" placeholder="Assunto">
-        </div>
-        <div class="textarea">
-          <textarea cols="30" rows="10" placeholder="Mensagem"></textarea>
-        </div>
-        <div class="button">
-          <button>Enviar</button>
-        </div>
-      </div>
-      <div class="map">
-        <img src="img/mapa.jpg" alt="Map">
-      </div>
-    </div>
-  </section>
-  <footer class="footer">
-    <p>Niku 2010</p>
-  </footer>
-  <script src="script.js"></script>
+	<header class="header">
+		<div class="logo">
+			<img src="img/logo.jpg" alt="Sex Shop Juca">
+		</div>
+		<div class="menu" onclick="menu()"></div>
+	</header>
+	<nav class="nav" id="nav">
+		<ul>
+			<li><a href="#" class="selected">Home</a></li>
+			<li><a href="#">Produto</a></li>
+			<li><a href="#">Serviço</a></li>
+			<li><a href="#">Login</a></li>
+			<li><a href="#">Contato</a></li>
+		</ul>
+	</nav>
+	<div class="modal-fundo" id="modal-fundo"></div>
+	<div class="login" id="login">
+		<div class="topo-login">
+			<p>Login</p>
+			<div class="close-modal" id="close-modal">x</div>
+		</div>
+		<div class="center-login">
+			<div class="input input-modal input-usuario">
+				<input type="text" name="usuario" id="usuario" placeholder="usuário" />
+			</div>
+			<div class="input input-modal">
+				<input type="text" name="senha" id="senha" placeholder="senha" />
+			</div>
+			<div class="button button-modal">
+				<button id="login">Login</button>
+			</div>
+		</div>
+	</div>
+	<div class="separation"></div>
+	<section class="container-body">
+		<section class="container-banner">
+			<img src="" alt="Banner" id="banner">
+			<div class="shadow-banner"></div>
+			<div id="shadow-comment" class="shadow-comment"></div>
+		</section>
+	</section>
+	<section class="container-product">
+		<div class="title-product">
+			<h2>Produtos em Destaque</h2>
+		</div>
+		<div class="border-title"></div>
+		<div class="grid-products" id="grid-products"></div>
+	</section>
+	<div class="separation-container"></div>
+	<section class="container-service">
+		<div class="title-service">
+			<h2>Conheça nossos serviços</h2>
+		</div>
+		<div class="border-title-service"></div>
+		<div class="grid-service" id="grid-service"></div>
+	</section>
+	<div class="separation-container"></div>
+	<section class="container-contact">
+		<div class="title-contact">
+			<h2>Entre em contato</h2>
+		</div>
+		<div class="border-title-contact"></div>
+		<div class="grid-contact">
+			<div class="form">
+				<div class="input input-duo">
+					<input type="text" placeholder="Nome">
+				</div>
+				<div class="input input-duo">
+					<input type="text" placeholder="Email">
+				</div>
+				<div class="input">
+					<input type="text" placeholder="Assunto">
+				</div>
+				<div class="textarea">
+					<textarea cols="30" rows="10" placeholder="Mensagem"></textarea>
+				</div>
+				<div class="button">
+					<button>Enviar</button>
+				</div>
+			</div>
+			<div class="map">
+				<img src="img/mapa.jpg" alt="Map">
+			</div>
+		</div>
+	</section>
+	<footer class="footer">
+		<p>Niku 2010</p>
+	</footer>
+	<script src="script.js"></script>
 </body>
 </html>
