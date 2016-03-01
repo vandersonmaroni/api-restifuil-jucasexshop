@@ -20,18 +20,24 @@ import com.sun.jersey.spi.container.ContainerRequestFilter;
 public class ApiRestFilter implements ContainerRequestFilter, Serializable {
 	private static final long serialVersionUID = -1234848483487540236L;
 
-	@Inject 
+	@Inject
 	private UsuarioService usuarioService;
-	
-	@Override	
+
+	@Override
 	public ContainerRequest filter(ContainerRequest request) {
 		String token = request.getHeaderValue("authorization");
 		String usuario = null;
 
+		if (request.getPath().contains("site/destaques")
+				|| request.getPath().contains("site/produtos")
+				|| request.getPath().contains("site/servicos")) {
+			return request;
+		}
+
 		if (request.getMethod().equals(MethodType.POST.name())) {
 			return request;
 		}
-		
+
 		try {
 			usuario = TokenAuthenticationGenerator.getUserJsonFromToken(token);
 		} catch (Exception e) {
@@ -48,7 +54,7 @@ public class ApiRestFilter implements ContainerRequestFilter, Serializable {
 		if (token == null) {
 			throw new WebApplicationException(Status.UNAUTHORIZED);
 		}
-		
+
 		return request;
 	}
 

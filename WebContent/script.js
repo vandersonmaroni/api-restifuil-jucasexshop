@@ -1,5 +1,5 @@
 var base_url = "http://localhost:8080/api-restiful/api";
-
+var i = 0;
 function menu() {
 
 	var elemento = document.getElementById('nav');
@@ -31,33 +31,44 @@ function logar() {
 	var password = document.getElementById("senha").value;
 
 	if (usuario == '' || senha == '') {
-		console.log("Usuario inválido");
+		alert("Digite algum usuario e senha!")
 	} else {
 		var json = '{"usuario":"' + username + '", "senha":"' + password + '"}';
-		console.log(json);
 		var xmlhttp = new XMLHttpRequest();
 		var url = base_url + "/login";
 		xmlhttp.open("POST", url, true);
 		xmlhttp.setRequestHeader("Content-type", "application/json");
 
 		xmlhttp.onload = function(e) {
-			var obj = JSON.parse(xmlhttp.responseText);
-			sessionStorage.setItem('token', obj.token);
+			if (xmlhttp.status == 200) {
+				var obj = JSON.parse(xmlhttp.responseText);
+				sessionStorage.setItem('token', obj.token);
+				window.location.href = "console.html";
+			} else {
+				alert("Usuário ou senha inválido");
+			}
+		}
+
+		xmlhttp.onerror = function(e) {
+			console.log("Deu erro");
 		}
 		xmlhttp.send(json);
 	}
 }
 
+function pegar_token() {
+	return sessionStorage.token;
+}
+
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.withCredentials = false;
 
-var urlDestaques = base_url + "/destaques";
-var urlProdutos = base_url + "/produtos";
-var urlServicos = base_url + "/servicos";
+var urlDestaques = base_url + "/site/destaques";
+var urlProdutos = base_url + "/site/produtos";
+var urlServicos = base_url + "/site/servicos";
 var html = "";
 
 xmlhttp.open("GET", urlDestaques, true);
-xmlhttp.setRequestHeader("Authorization", "vanderson");
 
 xmlhttp.onload = function(e) {
 	var obj = JSON.parse(xmlhttp.responseText);
@@ -71,7 +82,6 @@ xmlhttp.onload = function(e) {
 
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", urlProdutos, true);
-	xmlhttp.setRequestHeader("Authorization", "vanderson");
 	xmlhttp.onload = function(e) {
 
 		var obj = JSON.parse(xmlhttp.responseText);
@@ -87,7 +97,6 @@ xmlhttp.onload = function(e) {
 
 		xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("GET", urlServicos, true);
-		xmlhttp.setRequestHeader("Authorization", "vanderson");
 		html = "";
 		xmlhttp.onload = function(e) {
 			var obj = JSON.parse(xmlhttp.responseText);
@@ -118,3 +127,4 @@ xmlhttp.onerror = function(e) {
 };
 
 xmlhttp.send();
+

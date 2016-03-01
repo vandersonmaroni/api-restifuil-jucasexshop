@@ -1,12 +1,15 @@
 package com.maroni.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import java.sql.Timestamp;
 
 
 /**
@@ -25,7 +28,7 @@ public class Produto implements Serializable {
 	private int id;
 
 	@Column(name="data_cadastro")
-	private Timestamp dataCadastro;
+	private Date dataCadastro;
 
 	@Lob
 	private String descricao;
@@ -47,11 +50,11 @@ public class Produto implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getDataCadastro() {
+	public Date getDataCadastro() {
 		return this.dataCadastro;
 	}
 
-	public void setDataCadastro(Timestamp dataCadastro) {
+	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 

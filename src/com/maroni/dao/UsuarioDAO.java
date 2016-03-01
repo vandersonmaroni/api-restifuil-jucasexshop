@@ -1,7 +1,9 @@
 package com.maroni.dao;
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
 import com.maroni.model.Usuario;
 import com.maroni.util.dao.DAO;
 
@@ -23,9 +25,12 @@ public class UsuarioDAO extends DAO<Usuario> {
 			query.setParameter("senha", senha);
 			usuario = (Usuario) query.getSingleResult();
 
+		} catch (NoResultException ex) {
+			return usuario;
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
+		
 		return usuario;
 	}
 }
