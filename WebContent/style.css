@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: verdana, arial;
+	font-family: sans-serif;
 }
 
 textarea:focus, input:focus {
@@ -12,7 +12,6 @@ textarea:focus, input:focus {
 table {
 	border-collapse: collapse;
 	width: 100%;
-	
 }
 
 th, td {
@@ -25,7 +24,7 @@ tr:nth-child(even) {
 }
 
 th {
-	background-color: #526cfe;
+	background-image: linear-gradient(to bottom, rgba(73,155,234,1) 0%, rgba(82,108,254,1) 100%);
 	color: white;
 }
 
@@ -391,9 +390,9 @@ th {
 	color: #FFF;
 	font-size: 1.3em;
 	line-height: 70px;
-	font-weight: bold;
 	cursor: pointer;
 	padding: 1.6% 1.7%;
+	text-decoration: none;
 }
 
 .header-console a:hover {
@@ -406,14 +405,67 @@ th {
 }
 
 .center-restrict h2 {
-	color: #FFF;
-	padding: 1% 1.6%;
-	background-color: #C2185B;
+	color: #C2185B;
 	width: 170px;
-	border-radius: 4px;
-	margin-bottom: 25px;
+	margin-bottom: 20px;
 }
 
+.center-restrict button {
+	font-size: 1.1em !important;
+	line-height: 40px !important;
+	margin-top: 20px;
+	font-weight: normal;
+	height: 40px !important;
+	border-radius: 3px;
+	background-color: #C2185B;
+	cursor: pointer;
+	border: 0;
+	color: #FFF;
+	height: 38px;
+	width: 10%;
+}
+
+.input-restrict, .textarea-restrict {
+	width: 40%;
+	height: 40px;
+	margin-top: 15px;
+	border: 1px solid #c6c4c4 !important;
+	border-radius: 3px;
+}
+
+.input-restrict input, .textarea-restrict textarea {
+	height: 38px;
+	line-height: 40px;
+	padding-left: 20px;
+	border: 0;
+	width: 100%;
+}
+
+.textarea-restrict {
+	height: 150px !important
+}
+
+.textarea-restrict textarea {
+	height: 140px !important;
+	resize: none;
+	line-height: 30px !important;
+}
+
+.formulario-alterar, .formulario-incluir, .formulario {
+	display: none;
+}
+
+.botoes {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+.botoes button {
+	margin-right: 10px;
+}
 
 @media ( max-width : 35.625em) { /*570px*/
 	.container-banner {

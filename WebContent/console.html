@@ -2,23 +2,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Console</title>
+<title>Destaques</title>
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
 	<header class="header-console">
-		<a>Destaque</a> <a>Serviço</a> <a>Produto</a>
+		<a href="console.html">Destaque</a> <a href="servico.html">Serviço</a>
+		<a href="produto.html">Produto</a>
 	</header>
 
 	<div class="center-restrict">
-		<h2>Destaque</h2>
+		<h2>Destaques</h2>
 		<div class="linha-separadora"></div>
 
 		<table id="tabela-destaque">
-			
-
 		</table>
+
+		<div class="formulario-incluir formulario-alterar">
+			<div class="inputs">
+				<div class="input-restrict">
+					<input type="text" id="titulo" value="" placeholder="Titulo">
+				</div>
+				<div class="textarea-restrict">
+					<textarea id="descricao" maxlength="150px" placeholder="Descricao"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="botoes">
+			<button type="button" id="novo" onclick="novo()">Novo</button>
+			<button type="button" class="formulario-incluir">Cadastrar</button>
+			<button type="button" class="formulario-alterar">Alterar</button>
+			<button type="button" class="formulario-incluir formulario-alterar"
+				onclick="cancelar()">Cancelar</button>
+		</div>
 	</div>
 	<script src="console.js"></script>
 </body>
