@@ -21,10 +21,33 @@ function novo() {
 	window.location.href = "destaque.html";
 }
 
+function excluir(data) {
+	var id = data.getAttribute('data-id');
+	console.log(id);
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/destaques/" + id;
+	xmlhttp.open("DELETE", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			window.location.href = "destaques.html";
+		} else {
+			alert("Erro ao deletar o Destaque");
+		}
+	}
+
+	xmlhttp.onerror = function(e) {
+		console.log("Deu erro");
+	}
+	xmlhttp.send();
+}
+
 function editar(data) {
 	var id = data.getAttribute('data-id');
 	console.log(data)
-	window.location.href = "destaque.html?id="+id;
+	window.location.href = "destaque.html?id=" + id;
 }
 
 function mostrarFormulario() {
@@ -103,22 +126,78 @@ html += "<tr><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastr
 xmlhttp.onload = function(e) {
 	if (xmlhttp.status == 200) {
 		var obj = JSON.parse(xmlhttp.responseText);
-		console.log(obj);
-		for (key in obj.destaque) {
-			html += "<tr class='selecao-de-linha' data-id='" + obj.destaque[key].id
-					+ "'>" + "<td onclick='selecionarLinha(this)' data-id='" + obj.destaque[key].id
-					+ "'>"
-					+ obj.destaque[key].titulo + "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj.destaque[key].id
-					+ "'>" + obj.destaque[key].descricao
-					+ "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj.destaque[key].id
-					+ "'>" + statusDisplay(obj.destaque[key].status)
-					+ "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj.destaque[key].id
-					+ "'>" + toDate(obj.destaque[key].dataCadastro)
-					+ "</td>"+ "<td><input type='image' onclick='editar(this)'  data-id='" + obj.destaque[key].id
-					+ "' class='edit' src='../img/edit.png' alt='edit' />" 
-					+ "</td>"+ "<td><input type='image' onclick='excluir(this)' class='trash' src='../img/trash.png' alt='trash' />" 
-					+ "</td>" + "</tr>";
+		if (obj.destaque.length === undefined) {
+			for (key in obj) {
+
+				html += "<tr class='selecao-de-linha' data-id='"
+						+ obj[key].id
+						+ "'>"
+						+ "<td onclick='selecionarLinha(this)' data-id='"
+						+ obj[key].id
+						+ "'>"
+						+ obj[key].titulo
+						+ "</td>"
+						+ "<td onclick='selecionarLinha(this)' data-id='"
+						+ obj[key].id
+						+ "'>"
+						+ obj[key].descricao
+						+ "</td>"
+						+ "<td onclick='selecionarLinha(this)' data-id='"
+						+ obj[key].id
+						+ "'>"
+						+ statusDisplay(obj[key].status)
+						+ "</td>"
+						+ "<td onclick='selecionarLinha(this)' data-id='"
+						+ obj[key].id
+						+ "'>"
+						+ toDate(obj[key].dataCadastro)
+						+ "</td>"
+						+ "<td><input type='image' onclick='editar(this)'  data-id='"
+						+ obj[key].id
+						+ "' class='edit' src='../img/edit.png' alt='edit' />"
+						+ "</td>"
+						+ "<td><input type='image' onclick='excluir(this)' data-id='"
+						+ obj[key].id
+						+ "' class='trash' src='../img/trash.png' alt='trash' />"
+						+ "</td>" + "</tr>";
+			}
+		}else{
+			for (key in obj.destaque) {
+
+				html += "<tr class='selecao-de-linha' data-id='"
+						+ obj.destaque[key].id
+						+ "'>"
+						+ "<td onclick='selecionarLinha(this)' data-id='"
+						+ obj.destaque[key].id
+						+ "'>"
+						+ obj.destaque[key].titulo
+						+ "</td>"
+						+ "<td onclick='selecionarLinha(this)' data-id='"
+						+ obj.destaque[key].id
+						+ "'>"
+						+ obj.destaque[key].descricao
+						+ "</td>"
+						+ "<td onclick='selecionarLinha(this)' data-id='"
+						+ obj.destaque[key].id
+						+ "'>"
+						+ statusDisplay(obj.destaque[key].status)
+						+ "</td>"
+						+ "<td onclick='selecionarLinha(this)' data-id='"
+						+ obj.destaque[key].id
+						+ "'>"
+						+ toDate(obj.destaque[key].dataCadastro)
+						+ "</td>"
+						+ "<td><input type='image' onclick='editar(this)'  data-id='"
+						+ obj.destaque[key].id
+						+ "' class='edit' src='../img/edit.png' alt='edit' />"
+						+ "</td>"
+						+ "<td><input type='image' onclick='excluir(this)' data-id='"
+						+ obj.destaque[key].id
+						+ "' class='trash' src='../img/trash.png' alt='trash' />"
+						+ "</td>" + "</tr>";
+			}
 		}
+		
 
 		document.getElementById("tabela-destaque").innerHTML = html;
 	} else {
