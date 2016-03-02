@@ -21,20 +21,30 @@
 
 		<div class="formulario-incluir formulario-alterar">
 			<div class="inputs">
-				<div class="input-restrict">
-					<input type="text" id="titulo" value="" placeholder="Titulo">
+				<div class="duo-inputs">
+					<div class="input-restrict espacamento-input">
+						<input type="text" id="titulo" value="" placeholder="Titulo" disabled>
+					</div>
+					<div class="input-restrict">
+						<select id="status" name="status" disabled>
+							<option value="">Selecione</option>
+							<option value="1">ATIVO</option>
+							<option value="0">INATIVO</option>
+						</select>
+					</div>
 				</div>
-				<div class="textarea-restrict">
-					<textarea id="descricao" maxlength="150px" placeholder="Descricao"></textarea>
+				<div class="textarea-restrict" id="descricaoDisabled">
+					<textarea id="descricao" maxlength="500" placeholder="Descricao" disabled></textarea>
+				</div>
+				<div class="input-restrict">
+					<input type="text" id="dataCadastro" value=""
+						placeholder="Data de cadastro" disabled>
 				</div>
 			</div>
 		</div>
 		<div class="botoes">
 			<button type="button" id="novo" onclick="novo()">Novo</button>
-			<button type="button" class="formulario-incluir">Cadastrar</button>
-			<button type="button" class="formulario-alterar">Alterar</button>
-			<button type="button" class="formulario-incluir formulario-alterar"
-				onclick="cancelar()">Cancelar</button>
+			<button type="button" class="formulario-incluir" onclick="cancelar()">Cancelar</button>
 		</div>
 	</div>
 	<script src="console.js"></script>

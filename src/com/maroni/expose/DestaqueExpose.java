@@ -37,6 +37,13 @@ public class DestaqueExpose implements Serializable{
 		return service.findAll();
 	}
 	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Destaque buscarPorId(@PathParam("id") String id){
+		return service.findById(Integer.parseInt(id));
+	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Destaque destaque){
