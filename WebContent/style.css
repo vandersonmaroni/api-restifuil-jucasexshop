@@ -506,6 +506,11 @@ th {
 	background-color: #FFF !important;
 }
 
+.edit, .trash {
+	width: 20px;
+	height: 20px;
+}
+
 @media ( max-width : 35.625em) { /*570px*/
 	.container-banner {
 		height: 170px;

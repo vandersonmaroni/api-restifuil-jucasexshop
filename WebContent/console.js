@@ -17,6 +17,10 @@ function statusDisplay(data) {
 	}
 }
 
+function novo() {
+	window.location.href = "insertConsole.html";
+}
+
 function mostrarFormulario() {
 	var i = 0;
 	var form = document.getElementsByClassName("formulario-incluir");
@@ -43,12 +47,12 @@ function cancelar() {
 }
 
 function toDate(dateStr) {
-    var parts = dateStr.split("-");
-    var parts2 = parts[2].split("T");
-    var dia = parts2[0];
-    var mes = parts[1];
-    var ano = parts[0];
-    return dia+"/"+mes+"/"+ano;
+	var parts = dateStr.split("-");
+	var parts2 = parts[2].split("T");
+	var dia = parts2[0];
+	var mes = parts[1];
+	var ano = parts[0];
+	return dia + "/" + mes + "/" + ano;
 }
 
 function selecionarLinha(data) {
@@ -65,7 +69,7 @@ function selecionarLinha(data) {
 		console.log(xmlhttp.responseText);
 		if (xmlhttp.status == 200) {
 			var obj = JSON.parse(xmlhttp.responseText);
-			
+
 			document.getElementById("titulo").value = obj.titulo;
 			document.getElementById("descricao").value = obj.descricao;
 			document.getElementById("dataCadastro").value = toDate(obj.dataCadastro);
@@ -73,9 +77,9 @@ function selecionarLinha(data) {
 			document.getElementById("descricaoDisabled").style.backgroundColor = "#FFF";
 		}
 	}
-	
+
 	xmlhttp.send();
-	
+
 	mostrarFormulario();
 }
 
@@ -87,7 +91,7 @@ xmlhttp.open("GET", url, true);
 xmlhttp.setRequestHeader("Content-type", "application/json");
 xmlhttp.setRequestHeader("Authorization", token);
 
-html += "<tr><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastro</th></tr>";
+html += "<tr><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastro</th><th>Editar</th><th>Excluir</th></tr>";
 
 xmlhttp.onload = function(e) {
 	if (xmlhttp.status == 200) {
@@ -97,8 +101,10 @@ xmlhttp.onload = function(e) {
 					+ "' onclick='selecionarLinha(this)'>" + "<td>"
 					+ obj[key].titulo + "</td>" + "<td>" + obj[key].descricao
 					+ "</td>" + "<td>" + statusDisplay(obj[key].status)
-					+ "</td>" + "<td>" + toDate(obj[key].dataCadastro) + "</td>"
-					+ "</tr>";
+					+ "</td>" + "<td>" + toDate(obj[key].dataCadastro)
+					+ "</td>"+ "<td><input type='image' class='edit' src='img/edit.png' alt='edit' />" 
+					+ "</td>"+ "<td><input type='image' class='trash' src='img/trash.png' alt='trash' />" 
+					+ "</td>" + "</tr>";
 		}
 
 		document.getElementById("tabela-destaque").innerHTML = html;
