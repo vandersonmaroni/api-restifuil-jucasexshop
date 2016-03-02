@@ -21,6 +21,12 @@ function novo() {
 	window.location.href = "insertConsole.html";
 }
 
+function editar(data) {
+	var id = data.getAttribute('data-id');
+	console.log(data)
+	window.location.href = "insertConsole.html?id="+id;
+}
+
 function mostrarFormulario() {
 	var i = 0;
 	var form = document.getElementsByClassName("formulario-incluir");
@@ -74,6 +80,7 @@ function selecionarLinha(data) {
 			document.getElementById("descricao").value = obj.descricao;
 			document.getElementById("dataCadastro").value = toDate(obj.dataCadastro);
 			document.getElementById("status").value = obj.status;
+			document.getElementById("imagem").value = obj.imagem;
 			document.getElementById("descricaoDisabled").style.backgroundColor = "#FFF";
 		}
 	}
@@ -98,12 +105,17 @@ xmlhttp.onload = function(e) {
 		var obj = JSON.parse(xmlhttp.responseText);
 		for (key in obj) {
 			html += "<tr class='selecao-de-linha' data-id='" + obj[key].id
-					+ "' onclick='selecionarLinha(this)'>" + "<td>"
-					+ obj[key].titulo + "</td>" + "<td>" + obj[key].descricao
-					+ "</td>" + "<td>" + statusDisplay(obj[key].status)
-					+ "</td>" + "<td>" + toDate(obj[key].dataCadastro)
-					+ "</td>"+ "<td><input type='image' class='edit' src='img/edit.png' alt='edit' />" 
-					+ "</td>"+ "<td><input type='image' class='trash' src='img/trash.png' alt='trash' />" 
+					+ "'>" + "<td onclick='selecionarLinha(this)' data-id='" + obj[key].id
+					+ "'>"
+					+ obj[key].titulo + "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj[key].id
+					+ "'>" + obj[key].descricao
+					+ "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj[key].id
+					+ "'>" + statusDisplay(obj[key].status)
+					+ "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj[key].id
+					+ "'>" + toDate(obj[key].dataCadastro)
+					+ "</td>"+ "<td><input type='image' onclick='editar(this)'  data-id='" + obj[key].id
+					+ "' class='edit' src='img/edit.png' alt='edit' />" 
+					+ "</td>"+ "<td><input type='image' onclick='excluir(this)' class='trash' src='img/trash.png' alt='trash' />" 
 					+ "</td>" + "</tr>";
 		}
 

@@ -13,37 +13,43 @@
 	</header>
 
 	<div class="center-restrict">
-		<h2>Destaques</h2>
+		<h2 class="cadastrar">Cadastrar Destaques</h2>
+		<h2 class="alterar">Alterar Destaques</h2>
 		<div class="linha-separadora"></div>
 
 		<table id="tabela-destaque">
 		</table>
 
-		<div class="formulario-incluir formulario-alterar">
+		<div>
 			<div class="inputs">
 				<div class="duo-inputs">
 					<div class="input-restrict espacamento-input">
-						<input type="text" id="titulo" value="" placeholder="Titulo" disabled>
+						<input type="text" id="titulo" value="" placeholder="Titulo">
 					</div>
 					<div class="input-restrict">
-						<select id="status" name="status" disabled>
-							<option value="">Selecione</option>
+						<select id="status" name="status">
+							<option value="" hidden="true">Status</option>
 							<option value="1">ATIVO</option>
 							<option value="0">INATIVO</option>
 						</select>
 					</div>
 				</div>
 				<div class="textarea-restrict" id="descricaoDisabled">
-					<textarea id="descricao" maxlength="500" placeholder="Descricao" disabled></textarea>
+					<textarea id="descricao" maxlength="500" placeholder="Descricao"></textarea>
 				</div>
-				<div class="input-restrict">
-					<input type="text" id="dataCadastro" value=""
-						placeholder="Data de cadastro" disabled>
+				<div class="duo-inputs">
+					<div class="input-restrict espacamento-input">
+						<input type="text" id="imagem" value="" placeholder="imagem">
+					</div>
+					<div class="input-restrict">
+						<input type="text" id="dataCadastro" value="" placeholder="Data de cadastro" disabled >
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="botoes">
-			<button type="button" id="alterar" onclick="alterar()">Novo</button>
+			<button type="button" class="cadastrar" id="cadastrar" onclick="cadastrar()">Cadastrar</button>
+			<button type="button" class="alterar" id="alterar" onclick="alterar()">Alterar</button>
 			<button type="button" onclick="cancelar()">Cancelar</button>
 		</div>
 	</div>
