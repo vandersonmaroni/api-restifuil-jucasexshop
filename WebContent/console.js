@@ -2,7 +2,11 @@
 var base_url = "http://localhost:8080/api-restiful/api";
 
 function pegar_token() {
-	return sessionStorage.token;
+	if (sessionStorage.token == undefined) {
+		return "";
+	} else {
+		return sessionStorage.token;
+	}
 }
 
 function statusDisplay(data) {
@@ -34,7 +38,7 @@ function cancelar() {
 		formAlterar[i].style.display = "none";
 		formAlterar[i].style.value = "";
 	}
-	
+
 	document.getElementById("novo").style.display = "block";
 }
 
@@ -49,17 +53,20 @@ xmlhttp.setRequestHeader("Authorization", token);
 html += "<tr><th>ID</th><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastro</th></tr>";
 
 xmlhttp.onload = function(e) {
-	var obj = JSON.parse(xmlhttp.responseText);
-	for (key in obj) {
-		html += "<tr>" + "<td>" + obj[key].id + "</td>" + "<td>"
-				+ obj[key].titulo + "</td>" + "<td>" + obj[key].descricao
-				+ "</td>" + "<td>" + statusDisplay(obj[key].status) + "</td>"
-				+ "<td>" + obj[key].dataCadastro + "</td>" + "</tr>";
-	}
+	if (xmlhttp.status == 200) {
+		var obj = JSON.parse(xmlhttp.responseText);
+		for (key in obj) {
+			html += "<tr>" + "<td>" + obj[key].id + "</td>" + "<td>"
+					+ obj[key].titulo + "</td>" + "<td>" + obj[key].descricao
+					+ "</td>" + "<td>" + statusDisplay(obj[key].status)
+					+ "</td>" + "<td>" + obj[key].dataCadastro + "</td>"
+					+ "</tr>";
+		}
 
-	document.getElementById("tabela-destaque").innerHTML = html;
+		document.getElementById("tabela-destaque").innerHTML = html;
+	}else{
+		alert("Token inválido!");
+	}
 }
 
 xmlhttp.send();
-
-

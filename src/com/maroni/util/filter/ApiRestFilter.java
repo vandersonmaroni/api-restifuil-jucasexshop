@@ -51,7 +51,7 @@ public class ApiRestFilter implements ContainerRequestFilter, Serializable {
 			Usuario usuarioExpose = new Usuario(usuarioJSON);
 			token = usuarioService.buscarTokenPorUsuario(usuarioExpose);
 		}
-		if (token == null) {
+		if (token == null || token.isEmpty()) {
 			throw new WebApplicationException(Status.UNAUTHORIZED);
 		}
 

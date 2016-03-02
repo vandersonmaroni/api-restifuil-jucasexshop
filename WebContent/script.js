@@ -57,7 +57,11 @@ function logar() {
 }
 
 function pegar_token() {
-	return sessionStorage.token;
+	if(sessionStorage.token == undefined){
+		return "";
+	}else{
+		return sessionStorage.token;
+	}
 }
 
 var xmlhttp = new XMLHttpRequest();
