@@ -43,7 +43,7 @@ function logar() {
 			if (xmlhttp.status == 200) {
 				var obj = JSON.parse(xmlhttp.responseText);
 				sessionStorage.setItem('token', obj.token);
-				window.location.href = "console.html";
+				window.location.href = "console/destaques.html";
 			} else {
 				alert("Usuário ou senha inválido");
 			}
@@ -57,7 +57,7 @@ function logar() {
 }
 
 function pegar_token() {
-	if(sessionStorage.token == undefined){
+	if(sessionStorage.token === undefined){
 		return "";
 	}else{
 		return sessionStorage.token;

@@ -1,8 +1,6 @@
 package com.maroni.model;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -57,14 +55,8 @@ public class Destaque implements Serializable {
 		return this.dataCadastro;
 	}
 
-	public void setDataCadastro(String dataCadastro) {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        format.setLenient(false);
-        try {
-        	this.dataCadastro = format.parse(dataCadastro);
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public String getDescricao() {

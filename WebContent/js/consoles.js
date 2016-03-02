@@ -18,13 +18,13 @@ function statusDisplay(data) {
 }
 
 function novo() {
-	window.location.href = "insertConsole.html";
+	window.location.href = "destaque.html";
 }
 
 function editar(data) {
 	var id = data.getAttribute('data-id');
 	console.log(data)
-	window.location.href = "insertConsole.html?id="+id;
+	window.location.href = "destaque.html?id="+id;
 }
 
 function mostrarFormulario() {
@@ -103,19 +103,20 @@ html += "<tr><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastr
 xmlhttp.onload = function(e) {
 	if (xmlhttp.status == 200) {
 		var obj = JSON.parse(xmlhttp.responseText);
-		for (key in obj) {
-			html += "<tr class='selecao-de-linha' data-id='" + obj[key].id
-					+ "'>" + "<td onclick='selecionarLinha(this)' data-id='" + obj[key].id
+		console.log(obj);
+		for (key in obj.destaque) {
+			html += "<tr class='selecao-de-linha' data-id='" + obj.destaque[key].id
+					+ "'>" + "<td onclick='selecionarLinha(this)' data-id='" + obj.destaque[key].id
 					+ "'>"
-					+ obj[key].titulo + "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj[key].id
-					+ "'>" + obj[key].descricao
-					+ "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj[key].id
-					+ "'>" + statusDisplay(obj[key].status)
-					+ "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj[key].id
-					+ "'>" + toDate(obj[key].dataCadastro)
-					+ "</td>"+ "<td><input type='image' onclick='editar(this)'  data-id='" + obj[key].id
-					+ "' class='edit' src='img/edit.png' alt='edit' />" 
-					+ "</td>"+ "<td><input type='image' onclick='excluir(this)' class='trash' src='img/trash.png' alt='trash' />" 
+					+ obj.destaque[key].titulo + "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj.destaque[key].id
+					+ "'>" + obj.destaque[key].descricao
+					+ "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj.destaque[key].id
+					+ "'>" + statusDisplay(obj.destaque[key].status)
+					+ "</td>" + "<td onclick='selecionarLinha(this)' data-id='" + obj.destaque[key].id
+					+ "'>" + toDate(obj.destaque[key].dataCadastro)
+					+ "</td>"+ "<td><input type='image' onclick='editar(this)'  data-id='" + obj.destaque[key].id
+					+ "' class='edit' src='../img/edit.png' alt='edit' />" 
+					+ "</td>"+ "<td><input type='image' onclick='excluir(this)' class='trash' src='../img/trash.png' alt='trash' />" 
 					+ "</td>" + "</tr>";
 		}
 
