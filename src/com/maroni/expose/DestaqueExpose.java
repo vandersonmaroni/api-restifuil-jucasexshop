@@ -55,6 +55,7 @@ public class DestaqueExpose implements Serializable{
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response alterar(@PathParam("id") String id, Destaque destaque) {
+		destaque.setId(Integer.parseInt(id));
 		service.update(destaque);
 		return Response.ok(destaque, MediaType.APPLICATION_JSON).build();
 	}

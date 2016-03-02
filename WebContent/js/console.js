@@ -71,7 +71,7 @@ function cadastrar() {
 			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
 	var json = JSON.stringify(stringJson);
 	json = JSON.parse(json);
-	
+
 	var xmlhttp = new XMLHttpRequest();
 	var url = base_url + "/destaques";
 	xmlhttp.open("POST", url, true);
@@ -80,7 +80,7 @@ function cadastrar() {
 	xmlhttp.onload = function(e) {
 		if (xmlhttp.status == 200) {
 			var obj = JSON.parse(xmlhttp.responseText);
-			console.log(obj);
+			window.location.href = "destaques.html";
 		} else {
 			alert("Erro ao inserir o Destaque");
 		}
@@ -90,9 +90,45 @@ function cadastrar() {
 		console.log("Deu erro");
 	}
 	xmlhttp.send(json);
-	
-	
+}
 
+
+function alterar(){
+	var e = document.getElementById("status");
+	var status = e.options[e.selectedIndex].value;
+	var titulo = document.getElementById("titulo").value;
+	var descricao = document.getElementById("descricao").value;
+	var imagem = document.getElementById("imagem").value;
+	var token = pegar_token();
+
+	if (!validarCampos(titulo, status, descricao, imagem)) {
+		return;
+	}
+
+	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
+			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
+	var json = JSON.stringify(stringJson);
+	json = JSON.parse(json);
+
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/destaques/"+getId;
+	xmlhttp.open("PUT", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			window.location.href = "destaques.html";
+		} else {
+			alert("Erro ao alterar o Destaque");
+		}
+	}
+
+	xmlhttp.onerror = function(e) {
+		console.log("Deu erro");
+	}
+	xmlhttp.send(json);
 }
 
 function validarCampos(titulo, status, descricao, imagem) {
