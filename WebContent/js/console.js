@@ -56,7 +56,7 @@ function mostarCadastrar() {
 	}
 }
 
-function cadastrar() {
+function cadastrarDestaque() {
 	var e = document.getElementById("status");
 	var status = e.options[e.selectedIndex].value;
 	var titulo = document.getElementById("titulo").value;
@@ -93,7 +93,7 @@ function cadastrar() {
 }
 
 
-function alterar(){
+function alterarDestaque(){
 	var e = document.getElementById("status");
 	var status = e.options[e.selectedIndex].value;
 	var titulo = document.getElementById("titulo").value;
@@ -176,7 +176,7 @@ function mostrarFormulario() {
 	document.getElementById("novo").style.display = "none";
 }
 
-function cancelar() {
+function cancelarDestaque() {
 	window.location.href = "destaques.html";
 }
 

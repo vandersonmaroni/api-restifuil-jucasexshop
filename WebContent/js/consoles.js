@@ -17,7 +17,7 @@ function statusDisplay(data) {
 	}
 }
 
-function novo() {
+function novoDestaque() {
 	window.location.href = "destaque.html";
 }
 
@@ -59,7 +59,7 @@ function mostrarFormulario() {
 	document.getElementById("novo").style.display = "none";
 }
 
-function cancelar() {
+function cancelarDestaque() {
 	var i = 0;
 	var form = document.getElementsByClassName("formulario-incluir");
 	var formAlterar = document.getElementsByClassName("formulario-alterar");
@@ -113,96 +113,209 @@ function selecionarLinha(data) {
 	mostrarFormulario();
 }
 
-var xmlhttp = new XMLHttpRequest();
-var url = base_url + "/destaques";
-var token = pegar_token();
-var html = "";
-xmlhttp.open("GET", url, true);
-xmlhttp.setRequestHeader("Content-type", "application/json");
-xmlhttp.setRequestHeader("Authorization", token);
-
-html += "<tr><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastro</th><th>Editar</th><th>Excluir</th></tr>";
-
-xmlhttp.onload = function(e) {
-	if (xmlhttp.status == 200) {
-		var obj = JSON.parse(xmlhttp.responseText);
-		if (obj.destaque.length === undefined) {
-			for (key in obj) {
-
-				html += "<tr class='selecao-de-linha' data-id='"
-						+ obj[key].id
-						+ "'>"
-						+ "<td onclick='selecionarLinha(this)' data-id='"
-						+ obj[key].id
-						+ "'>"
-						+ obj[key].titulo
-						+ "</td>"
-						+ "<td onclick='selecionarLinha(this)' data-id='"
-						+ obj[key].id
-						+ "'>"
-						+ obj[key].descricao
-						+ "</td>"
-						+ "<td onclick='selecionarLinha(this)' data-id='"
-						+ obj[key].id
-						+ "'>"
-						+ statusDisplay(obj[key].status)
-						+ "</td>"
-						+ "<td onclick='selecionarLinha(this)' data-id='"
-						+ obj[key].id
-						+ "'>"
-						+ toDate(obj[key].dataCadastro)
-						+ "</td>"
-						+ "<td><input type='image' onclick='editar(this)'  data-id='"
-						+ obj[key].id
-						+ "' class='edit' src='../img/edit.png' alt='edit' />"
-						+ "</td>"
-						+ "<td><input type='image' onclick='excluir(this)' data-id='"
-						+ obj[key].id
-						+ "' class='trash' src='../img/trash.png' alt='trash' />"
-						+ "</td>" + "</tr>";
-			}
-		}else{
-			for (key in obj.destaque) {
-
-				html += "<tr class='selecao-de-linha' data-id='"
-						+ obj.destaque[key].id
-						+ "'>"
-						+ "<td onclick='selecionarLinha(this)' data-id='"
-						+ obj.destaque[key].id
-						+ "'>"
-						+ obj.destaque[key].titulo
-						+ "</td>"
-						+ "<td onclick='selecionarLinha(this)' data-id='"
-						+ obj.destaque[key].id
-						+ "'>"
-						+ obj.destaque[key].descricao
-						+ "</td>"
-						+ "<td onclick='selecionarLinha(this)' data-id='"
-						+ obj.destaque[key].id
-						+ "'>"
-						+ statusDisplay(obj.destaque[key].status)
-						+ "</td>"
-						+ "<td onclick='selecionarLinha(this)' data-id='"
-						+ obj.destaque[key].id
-						+ "'>"
-						+ toDate(obj.destaque[key].dataCadastro)
-						+ "</td>"
-						+ "<td><input type='image' onclick='editar(this)'  data-id='"
-						+ obj.destaque[key].id
-						+ "' class='edit' src='../img/edit.png' alt='edit' />"
-						+ "</td>"
-						+ "<td><input type='image' onclick='excluir(this)' data-id='"
-						+ obj.destaque[key].id
-						+ "' class='trash' src='../img/trash.png' alt='trash' />"
-						+ "</td>" + "</tr>";
-			}
-		}
-		
-
-		document.getElementById("tabela-destaque").innerHTML = html;
-	} else {
-		alert("Token inválido!");
-	}
+function pegarPaginaAtual() {
+	var aux = window.location.pathname;
+	var aux2 = aux.split("/");
+	var aux3 = aux2[3].split(".");
+	var url = aux3[0];
+	return url;
 }
 
-xmlhttp.send();
+function exibirDestaques() {
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/destaques";
+	var token = pegar_token();
+	var html = "";
+	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	html += "<tr><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastro</th><th>Editar</th><th>Excluir</th></tr>";
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			if (obj.destaque.length === undefined) {
+				for (key in obj) {
+
+					html += "<tr class='selecao-de-linha' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ obj[key].titulo
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ obj[key].descricao
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ statusDisplay(obj[key].status)
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ toDate(obj[key].dataCadastro)
+							+ "</td>"
+							+ "<td><input type='image' onclick='editar(this)'  data-id='"
+							+ obj[key].id
+							+ "' class='edit' src='../img/edit.png' alt='edit' />"
+							+ "</td>"
+							+ "<td><input type='image' onclick='excluir(this)' data-id='"
+							+ obj[key].id
+							+ "' class='trash' src='../img/trash.png' alt='trash' />"
+							+ "</td>" + "</tr>";
+				}
+			} else {
+				for (key in obj.destaque) {
+
+					html += "<tr class='selecao-de-linha' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ obj.destaque[key].titulo
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ obj.destaque[key].descricao
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ statusDisplay(obj.destaque[key].status)
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ toDate(obj.destaque[key].dataCadastro)
+							+ "</td>"
+							+ "<td><input type='image' onclick='editar(this)'  data-id='"
+							+ obj.destaque[key].id
+							+ "' class='edit' src='../img/edit.png' alt='edit' />"
+							+ "</td>"
+							+ "<td><input type='image' onclick='excluir(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "' class='trash' src='../img/trash.png' alt='trash' />"
+							+ "</td>" + "</tr>";
+				}
+			}
+
+			document.getElementById("tabela-destaque").innerHTML = html;
+		} else {
+			alert("Token inválido!");
+		}
+	}
+
+	xmlhttp.send();
+}
+
+
+function exibirServicos() {
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/servicos";
+	var token = pegar_token();
+	var html = "";
+	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	html += "<tr><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastro</th><th>Editar</th><th>Excluir</th></tr>";
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			if (obj.destaque.length === undefined) {
+				for (key in obj) {
+
+					html += "<tr class='selecao-de-linha' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ obj[key].titulo
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ obj[key].descricao
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ statusDisplay(obj[key].status)
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ toDate(obj[key].dataCadastro)
+							+ "</td>"
+							+ "<td><input type='image' onclick='editar(this)'  data-id='"
+							+ obj[key].id
+							+ "' class='edit' src='../img/edit.png' alt='edit' />"
+							+ "</td>"
+							+ "<td><input type='image' onclick='excluir(this)' data-id='"
+							+ obj[key].id
+							+ "' class='trash' src='../img/trash.png' alt='trash' />"
+							+ "</td>" + "</tr>";
+				}
+			} else {
+				for (key in obj.destaque) {
+
+					html += "<tr class='selecao-de-linha' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ obj.destaque[key].titulo
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ obj.destaque[key].descricao
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ statusDisplay(obj.destaque[key].status)
+							+ "</td>"
+							+ "<td onclick='selecionarLinha(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "'>"
+							+ toDate(obj.destaque[key].dataCadastro)
+							+ "</td>"
+							+ "<td><input type='image' onclick='editar(this)'  data-id='"
+							+ obj.destaque[key].id
+							+ "' class='edit' src='../img/edit.png' alt='edit' />"
+							+ "</td>"
+							+ "<td><input type='image' onclick='excluir(this)' data-id='"
+							+ obj.destaque[key].id
+							+ "' class='trash' src='../img/trash.png' alt='trash' />"
+							+ "</td>" + "</tr>";
+				}
+			}
+
+			document.getElementById("tabela-destaque").innerHTML = html;
+		} else {
+			alert("Token inválido!");
+		}
+	}
+
+	xmlhttp.send();
+
+}
+
+if (pegarPaginaAtual() === "destaques") {
+	exibirDestaques();
+}else if(pegarPaginaAtual() === "servicos"){
+	exibirServicos();
+}
+

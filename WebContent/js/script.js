@@ -57,9 +57,9 @@ function logar() {
 }
 
 function pegar_token() {
-	if(sessionStorage.token === undefined){
+	if (sessionStorage.token === undefined) {
 		return "";
-	}else{
+	} else {
 		return sessionStorage.token;
 	}
 }
@@ -76,12 +76,21 @@ xmlhttp.open("GET", urlDestaques, true);
 
 xmlhttp.onload = function(e) {
 	var obj = JSON.parse(xmlhttp.responseText);
-	for (key in obj) {
-		html += "<p class='title-comment'>" + obj[key].titulo + "</p>"
+	if (obj.destaque.length === undefined) {
+		for (key in obj) {
+			html += "<p class='title-comment'>" + obj[key].titulo + "</p>"
+					+ "<div class='title-border'></div>"
+					+ "<p class='comment'>" + obj[key].descricao + "</p>";
+			document.getElementById("banner").src = "img/" + obj[key].imagem;
+		}
+	} else {
+		html += "<p class='title-comment'>" + obj.destaque[0].titulo + "</p>"
 				+ "<div class='title-border'></div>" + "<p class='comment'>"
-				+ obj[key].descricao + "</p>";
-		document.getElementById("banner").src = "img/" + obj[key].imagem;
+				+ obj.destaque[0].descricao + "</p>";
+		document.getElementById("banner").src = "img/"
+				+ obj.destaque[0].imagem;
 	}
+
 	document.getElementById("shadow-comment").innerHTML = html;
 
 	xmlhttp = new XMLHttpRequest();
@@ -131,4 +140,3 @@ xmlhttp.onerror = function(e) {
 };
 
 xmlhttp.send();
-
