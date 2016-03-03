@@ -25,6 +25,10 @@ function novoServico() {
 	window.location.href = "servico.html";
 }
 
+function novoProduto() {
+	window.location.href = "produto.html";
+}
+
 function excluir(data) {
 	var id = data.getAttribute('data-id');
 	console.log(id);
@@ -63,7 +67,31 @@ function excluirServico(data) {
 		if (xmlhttp.status == 200) {
 			window.location.href = "servicos.html";
 		} else {
-			alert("Erro ao deletar o Destaque");
+			alert("Erro ao deletar o Serviço");
+		}
+	}
+
+	xmlhttp.onerror = function(e) {
+		console.log("Deu erro");
+	}
+	xmlhttp.send();
+}
+
+function excluirProduto(data) {
+	var id = data.getAttribute('data-id');
+	console.log(id);
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/produtos/" + id;
+
+	xmlhttp.open("DELETE", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", pegar_token());
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			window.location.href = "produtos.html";
+		} else {
+			alert("Erro ao deletar o Produto");
 		}
 	}
 
@@ -83,6 +111,12 @@ function editarServico(data) {
 	var id = data.getAttribute('data-id');
 	console.log(data)
 	window.location.href = "servico.html?id=" + id;
+}
+
+function editarProduto(data) {
+	var id = data.getAttribute('data-id');
+	console.log(data)
+	window.location.href = "produto.html?id=" + id;
 }
 
 function mostrarFormulario() {
@@ -126,6 +160,22 @@ function cancelarServico() {
 	document.getElementById("novo").style.display = "block";
 }
 
+function cancelarProduto() {
+	var i = 0;
+	var form = document.getElementsByClassName("formulario-incluir");
+	var formAlterar = document.getElementsByClassName("formulario-alterar");
+	for (i = 0; i < form.length; i++) {
+		form[i].style.display = "none";
+		form[i].style.value = "";
+	}
+	for (i = 0; i < formAlterar.length; i++) {
+		formAlterar[i].style.display = "none";
+		formAlterar[i].style.value = "";
+	}
+
+	document.getElementById("novo").style.display = "block";
+}
+
 function toDate(dateStr) {
 	var parts = dateStr.split("-");
 	var parts2 = parts[2].split("T");
@@ -139,6 +189,35 @@ function selecionarLinhaDestaque(data) {
 	var id = data.getAttribute('data-id');
 	var xmlhttp = new XMLHttpRequest();
 	var url = base_url + "/destaques/" + id;
+	var token = pegar_token();
+	var html = "";
+	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.onload = function(e) {
+		console.log(xmlhttp.responseText);
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+
+			document.getElementById("titulo").value = obj.titulo;
+			document.getElementById("descricao").value = obj.descricao;
+			document.getElementById("dataCadastro").value = toDate(obj.dataCadastro);
+			document.getElementById("status").value = obj.status;
+			document.getElementById("imagem").value = obj.imagem;
+			document.getElementById("descricaoDisabled").style.backgroundColor = "#FFF";
+		}
+	}
+
+	xmlhttp.send();
+
+	mostrarFormulario();
+}
+
+function selecionarLinhaProduto(data) {
+	var id = data.getAttribute('data-id');
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/produtos/" + id;
 	var token = pegar_token();
 	var html = "";
 	xmlhttp.open("GET", url, true);
@@ -392,8 +471,106 @@ function exibirServicos() {
 
 }
 
+function exibirProdutos() {
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/produtos";
+	var token = pegar_token();
+	var html = "";
+	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	html += "<tr><th>Titulo</th><th>Descricao</th><th>Status</th><th>Data de Cadastro</th><th>Editar</th><th>Excluir</th></tr>";
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			if (obj.produto.length === undefined) {
+				for (key in obj) {
+
+					html += "<tr class='selecao-de-linha' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ "<td onclick='selecionarLinhaProduto(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ obj[key].titulo
+							+ "</td>"
+							+ "<td onclick='selecionarLinhaProduto(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ obj[key].descricao
+							+ "</td>"
+							+ "<td onclick='selecionarLinhaProduto(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ statusDisplay(obj[key].status)
+							+ "</td>"
+							+ "<td onclick='selecionarLinhaProduto(this)' data-id='"
+							+ obj[key].id
+							+ "'>"
+							+ toDate(obj[key].dataCadastro)
+							+ "</td>"
+							+ "<td><input type='image' onclick='editarProduto(this)'  data-id='"
+							+ obj[key].id
+							+ "' class='edit' src='../img/edit.png' alt='edit' />"
+							+ "</td>"
+							+ "<td><input type='image' onclick='excluirProduto(this)' data-id='"
+							+ obj[key].id
+							+ "' class='trash' src='../img/trash.png' alt='trash' />"
+							+ "</td>" + "</tr>";
+				}
+			} else {
+				for (key in obj.produto) {
+
+					html += "<tr class='selecao-de-linha' data-id='"
+							+ obj.produto[key].id
+							+ "'>"
+							+ "<td onclick='selecionarLinhaProduto(this)' data-id='"
+							+ obj.produto[key].id
+							+ "'>"
+							+ obj.produto[key].titulo
+							+ "</td>"
+							+ "<td onclick='selecionarLinhaProduto(this)' data-id='"
+							+ obj.produto[key].id
+							+ "'>"
+							+ obj.produto[key].descricao
+							+ "</td>"
+							+ "<td onclick='selecionarLinhaProduto(this)' data-id='"
+							+ obj.produto[key].id
+							+ "'>"
+							+ statusDisplay(obj.produto[key].status)
+							+ "</td>"
+							+ "<td onclick='selecionarLinhaProduto(this)' data-id='"
+							+ obj.produto[key].id
+							+ "'>"
+							+ toDate(obj.produto[key].dataCadastro)
+							+ "</td>"
+							+ "<td><input type='image' onclick='editarProduto(this)'  data-id='"
+							+ obj.produto[key].id
+							+ "' class='edit' src='../img/edit.png' alt='edit' />"
+							+ "</td>"
+							+ "<td><input type='image' onclick='excluirProduto(this)' data-id='"
+							+ obj.produto[key].id
+							+ "' class='trash' src='../img/trash.png' alt='trash' />"
+							+ "</td>" + "</tr>";
+				}
+			}
+
+			document.getElementById("tabela-produto").innerHTML = html;
+		} else {
+			alert("Token inválido!");
+		}
+	}
+
+	xmlhttp.send();
+
+}
+
 if (pegarPaginaAtual() === "destaques") {
 	exibirDestaques();
 } else if (pegarPaginaAtual() === "servicos") {
 	exibirServicos();
+} else {
+	exibirProdutos();
 }

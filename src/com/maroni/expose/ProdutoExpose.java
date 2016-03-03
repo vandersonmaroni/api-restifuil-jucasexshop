@@ -37,6 +37,13 @@ public class ProdutoExpose implements Serializable {
 		return service.findAll();
 	}
 	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Produto buscarPorId(@PathParam("id") String id){
+		return service.findById(Integer.parseInt(id));
+	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Produto produto){
@@ -48,6 +55,7 @@ public class ProdutoExpose implements Serializable {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response alterar(@PathParam("id") String id, Produto produto) {
+		produto.setId(Integer.parseInt(id));
 		service.update(produto);
 		return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 	}

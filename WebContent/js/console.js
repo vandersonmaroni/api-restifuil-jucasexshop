@@ -12,9 +12,10 @@ if (getId === "") {
 		var url = base_url + "/destaques/" + getId;
 	} else if (pegarPaginaAtual() === "servico") {
 		var url = base_url + "/servicos/" + getId;
+	} else {
+		var url = base_url + "/produtos/" + getId;
 	}
-	
-	
+
 	var token = pegar_token();
 	var html = "";
 	xmlhttp.open("GET", url, true);
@@ -106,45 +107,6 @@ function cadastrarDestaque() {
 	xmlhttp.send(json);
 }
 
-
-function alterarDestaque(){
-	var e = document.getElementById("status");
-	var status = e.options[e.selectedIndex].value;
-	var titulo = document.getElementById("titulo").value;
-	var descricao = document.getElementById("descricao").value;
-	var imagem = document.getElementById("imagem").value;
-	var token = pegar_token();
-
-	if (!validarCampos(titulo, status, descricao, imagem)) {
-		return;
-	}
-
-	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
-			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
-	var json = JSON.stringify(stringJson);
-	json = JSON.parse(json);
-
-	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/destaques/"+getId;
-	xmlhttp.open("PUT", url, true);
-	xmlhttp.setRequestHeader("Content-type", "application/json");
-	xmlhttp.setRequestHeader("Authorization", token);
-
-	xmlhttp.onload = function(e) {
-		if (xmlhttp.status == 200) {
-			var obj = JSON.parse(xmlhttp.responseText);
-			window.location.href = "destaques.html";
-		} else {
-			alert("Erro ao alterar o Destaque");
-		}
-	}
-
-	xmlhttp.onerror = function(e) {
-		console.log("Deu erro");
-	}
-	xmlhttp.send(json);
-}
-
 function cadastrarServico() {
 	var e = document.getElementById("status");
 	var status = e.options[e.selectedIndex].value;
@@ -181,8 +143,43 @@ function cadastrarServico() {
 	xmlhttp.send(json);
 }
 
+function cadastrarProduto() {
+	var e = document.getElementById("status");
+	var status = e.options[e.selectedIndex].value;
+	var titulo = document.getElementById("titulo").value;
+	var descricao = document.getElementById("descricao").value;
+	var imagem = document.getElementById("imagem").value;
 
-function alterarServico(){
+	if (!validarCampos(titulo, status, descricao, imagem)) {
+		return;
+	}
+
+	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
+			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
+	var json = JSON.stringify(stringJson);
+	json = JSON.parse(json);
+
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/produtos";
+	xmlhttp.open("POST", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			window.location.href = "produtos.html";
+		} else {
+			alert("Erro ao inserir o Produto");
+		}
+	}
+
+	xmlhttp.onerror = function(e) {
+		console.log("Deu erro");
+	}
+	xmlhttp.send(json);
+}
+
+function alterarDestaque() {
 	var e = document.getElementById("status");
 	var status = e.options[e.selectedIndex].value;
 	var titulo = document.getElementById("titulo").value;
@@ -200,7 +197,46 @@ function alterarServico(){
 	json = JSON.parse(json);
 
 	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/servicos/"+getId;
+	var url = base_url + "/destaques/" + getId;
+	xmlhttp.open("PUT", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			window.location.href = "destaques.html";
+		} else {
+			alert("Erro ao alterar o Destaque");
+		}
+	}
+
+	xmlhttp.onerror = function(e) {
+		console.log("Deu erro");
+	}
+	xmlhttp.send(json);
+}
+
+
+function alterarServico() {
+	var e = document.getElementById("status");
+	var status = e.options[e.selectedIndex].value;
+	var titulo = document.getElementById("titulo").value;
+	var descricao = document.getElementById("descricao").value;
+	var imagem = document.getElementById("imagem").value;
+	var token = pegar_token();
+
+	if (!validarCampos(titulo, status, descricao, imagem)) {
+		return;
+	}
+
+	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
+			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
+	var json = JSON.stringify(stringJson);
+	json = JSON.parse(json);
+
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/servicos/" + getId;
 	xmlhttp.open("PUT", url, true);
 	xmlhttp.setRequestHeader("Content-type", "application/json");
 	xmlhttp.setRequestHeader("Authorization", token);
@@ -220,6 +256,43 @@ function alterarServico(){
 	xmlhttp.send(json);
 }
 
+function alterarProduto() {
+	var e = document.getElementById("status");
+	var status = e.options[e.selectedIndex].value;
+	var titulo = document.getElementById("titulo").value;
+	var descricao = document.getElementById("descricao").value;
+	var imagem = document.getElementById("imagem").value;
+	var token = pegar_token();
+
+	if (!validarCampos(titulo, status, descricao, imagem)) {
+		return;
+	}
+
+	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
+			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
+	var json = JSON.stringify(stringJson);
+	json = JSON.parse(json);
+
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/produtos/" + getId;
+	xmlhttp.open("PUT", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			window.location.href = "produtos.html";
+		} else {
+			alert("Erro ao alterar o Produto");
+		}
+	}
+
+	xmlhttp.onerror = function(e) {
+		console.log("Deu erro");
+	}
+	xmlhttp.send(json);
+}
 
 function validarCampos(titulo, status, descricao, imagem) {
 	if (titulo.trim() == '') {
@@ -272,6 +345,10 @@ function cancelarDestaque() {
 
 function cancelarServico() {
 	window.location.href = "servicos.html";
+}
+
+function cancelarProduto() {
+	window.location.href = "produtos.html";
 }
 
 function toDate(dateStr) {

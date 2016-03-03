@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 
-@XmlType(name = "Produto", propOrder = { "id", "nome", "descricao", "imagem", "status", "dataCadastro" })
+@XmlType(name = "Produto", propOrder = { "id", "titulo", "descricao", "imagem", "status", "dataCadastro" })
 @XmlRootElement
 @Entity
 @Table(name="produto")
@@ -35,7 +35,7 @@ public class Produto implements Serializable {
 
 	private String imagem;
 
-	private String nome;
+	private String titulo;
 
 	private byte status;
 
@@ -74,12 +74,12 @@ public class Produto implements Serializable {
 		this.imagem = imagem;
 	}
 
-	public String getNome() {
-		return this.nome;
+	public String getTitulo() {
+		return this.titulo;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public byte getStatus() {

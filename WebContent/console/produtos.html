@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Serviços</title>
+<title>Produtos</title>
 <link rel="stylesheet" href="../style.css">
 <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
@@ -13,46 +13,44 @@
 	</header>
 
 	<div class="center-restrict">
-		<h2 class="cadastrar">Cadastrar Serviços</h2>
-		<h2 class="alterar">Alterar Serviços</h2>
+		<h2>Produtos</h2>
 		<div class="linha-separadora"></div>
 
-		<table id="tabela-destaque">
+		<table id="tabela-produto">
 		</table>
 
-		<div>
+		<div class="formulario-incluir formulario-alterar">
 			<div class="inputs">
 				<div class="duo-inputs">
 					<div class="input-restrict espacamento-input">
-						<input type="text" id="titulo" value="" placeholder="Titulo">
+						<input type="text" id="titulo" value="" placeholder="Titulo" disabled>
 					</div>
 					<div class="input-restrict">
-						<select id="status" name="status">
-							<option value="" hidden="true">Status</option>
+						<select id="status" name="status" disabled>
+							<option value="">Selecione</option>
 							<option value="1">ATIVO</option>
 							<option value="0">INATIVO</option>
 						</select>
 					</div>
 				</div>
 				<div class="textarea-restrict" id="descricaoDisabled">
-					<textarea id="descricao" maxlength="500" placeholder="Descricao"></textarea>
+					<textarea id="descricao" maxlength="500" placeholder="Descricao" disabled></textarea>
 				</div>
 				<div class="duo-inputs">
 					<div class="input-restrict espacamento-input">
-						<input type="text" id="imagem" value="" placeholder="imagem">
+						<input type="text" id="imagem" value="" placeholder="imagem" disabled>
 					</div>
 					<div class="input-restrict">
-						<input type="text" id="dataCadastro" value="" placeholder="Data de cadastro" disabled >
+						<input type="text" id="dataCadastro" value="" placeholder="Data de cadastro" disabled>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="botoes">
-			<button type="button" class="cadastrar" id="cadastrar" onclick="cadastrarServico()">Cadastrar</button>
-			<button type="button" class="alterar" id="alterar" onclick="alterarServico()">Alterar</button>
-			<button type="button" onclick="cancelarServico()">Cancelar</button>
+			<button type="button" id="novo" onclick="novoProduto()">Novo</button>
+			<button type="button" class="formulario-incluir" onclick="cancelarProduto()">Cancelar</button>
 		</div>
 	</div>
-	<script src="../js/console.js"></script>
+	<script src="../js/consoles.js"></script>
 </body>
 </html>
