@@ -2,24 +2,57 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Servicos</title>
-<link rel="stylesheet" href="style.css">
+<title>Serviços</title>
+<link rel="stylesheet" href="../style.css">
 <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
 	<header class="header-console">
-		<a href="console.html">Destaque</a> <a href="servico.html">Serviço</a> <a href="produto.html">Produto</a>
+		<a href="destaques.html">Destaque</a> <a href="servicos.html">Serviço</a>
+		<a href="produtos.html">Produto</a>
 	</header>
 
 	<div class="center-restrict">
-		<h2>Servicos</h2>
+		<h2 class="cadastrar">Cadastrar Serviços</h2>
+		<h2 class="alterar">Alterar Destaques</h2>
 		<div class="linha-separadora"></div>
 
-		<table id="tabela-servico">
-			
-
+		<table id="tabela-destaque">
 		</table>
+
+		<div>
+			<div class="inputs">
+				<div class="duo-inputs">
+					<div class="input-restrict espacamento-input">
+						<input type="text" id="titulo" value="" placeholder="Titulo">
+					</div>
+					<div class="input-restrict">
+						<select id="status" name="status">
+							<option value="" hidden="true">Status</option>
+							<option value="1">ATIVO</option>
+							<option value="0">INATIVO</option>
+						</select>
+					</div>
+				</div>
+				<div class="textarea-restrict" id="descricaoDisabled">
+					<textarea id="descricao" maxlength="500" placeholder="Descricao"></textarea>
+				</div>
+				<div class="duo-inputs">
+					<div class="input-restrict espacamento-input">
+						<input type="text" id="imagem" value="" placeholder="imagem">
+					</div>
+					<div class="input-restrict">
+						<input type="text" id="dataCadastro" value="" placeholder="Data de cadastro" disabled >
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="botoes">
+			<button type="button" class="cadastrar" id="cadastrar" onclick="cadastrarServico()">Cadastrar</button>
+			<button type="button" class="alterar" id="alterar" onclick="alterarServico()">Alterar</button>
+			<button type="button" onclick="cancelarServico()">Cancelar</button>
+		</div>
 	</div>
-	<script src="console.js"></script>
+	<script src="../js/console.js"></script>
 </body>
 </html>

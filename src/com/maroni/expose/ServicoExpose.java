@@ -34,6 +34,13 @@ public class ServicoExpose implements Serializable{
 		return service.findAll();
 	}
 	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Servico buscarPorId(@PathParam("id") String id){
+		return service.findById(Integer.parseInt(id));
+	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Servico servico){
@@ -45,6 +52,7 @@ public class ServicoExpose implements Serializable{
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response alterar(@PathParam("id") String id, Servico servico) {
+		servico.setId(Integer.parseInt(id));
 		service.update(servico);
 		return Response.ok(servico, MediaType.APPLICATION_JSON).build();
 	}
