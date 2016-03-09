@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.maroni.model.JsonTotal;
 import com.maroni.model.Produto;
 import com.maroni.service.ProdutoService;
 
@@ -42,6 +43,23 @@ public class ProdutoExpose implements Serializable {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Produto buscarPorId(@PathParam("id") String id){
 		return service.findById(Integer.parseInt(id));
+	}
+	
+	@GET
+	@Path("{quantidade}/{quantidadeMaximaPorPagina}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Produto> buscarParaPaginacao(@PathParam("quantidade") String quantidade, @PathParam("quantidadeMaximaPorPagina") String quantidadeMaximaPorPagina) {
+		return service.buscarParaPaginacao(Integer.parseInt(quantidade), Integer.parseInt(quantidadeMaximaPorPagina));
+	}
+
+	@GET
+	@Path("/total")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response buscarTotal() {
+		Number quantidadeTotalDeDestaques = service.quantidadeDestaque();
+		JsonTotal json = new JsonTotal();
+		json.setTotal((Long) quantidadeTotalDeDestaques);
+		return Response.ok(json, MediaType.APPLICATION_JSON).build();
 	}
 	
 	@POST

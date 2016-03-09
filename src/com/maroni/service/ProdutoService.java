@@ -33,4 +33,12 @@ public class ProdutoService implements Serializable {
 	public List<Produto> findAll(){
 		return dao.findAll();
 	}
+
+	public List<Produto> buscarParaPaginacao(int quantidade, int quantidadeMaximaPorPagina) {
+		return dao.buscarParaPaginacao(quantidade,quantidadeMaximaPorPagina);
+	}
+
+	public Number quantidadeDestaque() {
+		return dao.quantidadeDestaque();
+	}
 }

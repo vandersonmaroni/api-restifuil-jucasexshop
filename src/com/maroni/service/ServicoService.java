@@ -33,4 +33,12 @@ public class ServicoService implements Serializable{
 	public List<Servico> findAll(){
 		return dao.findAll();
 	}
+
+	public List<Servico> buscarParaPaginacao(int quantidade, int quantidadeMaximaPorPagina) {
+		return dao.buscarParaPaginacao(quantidade,quantidadeMaximaPorPagina);
+	}
+
+	public Number quantidadeDestaque() {
+		return dao.quantidadeDestaque();
+	}
 }

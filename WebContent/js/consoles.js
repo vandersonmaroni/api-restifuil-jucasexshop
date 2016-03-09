@@ -1,5 +1,6 @@
 // Console
 var base_url = "http://localhost:8080/api-restiful/api";
+var valorTotalPorPagina = 5;
 
 function pegar_token() {
 	if (sessionStorage.token == undefined) {
@@ -280,11 +281,134 @@ function pegarPaginaAtual() {
 	return url;
 }
 
-function exibirDestaques() {
+function exibirDestaques(valorAux, selecionado) {
+	var xmlhttp = new XMLHttpRequest(), url = base_url + "/destaques/total", token = pegar_token(), html = "";
+	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			buscarDestaques(obj.total, valorTotalPorPagina, valorAux,
+					selecionado);
+		}
+	}
+	xmlhttp.send();
+}
+
+function exibirServicos(valorAux, selecionado) {
+	var xmlhttp = new XMLHttpRequest(), url = base_url + "/servicos/total", token = pegar_token(), html = "";
+	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			buscarServicos(obj.total, valorTotalPorPagina, valorAux,
+					selecionado);
+		}
+	}
+	xmlhttp.send();
+}
+
+function exibirProdutos(valorAux, selecionado) {
+	var xmlhttp = new XMLHttpRequest(), url = base_url + "/produtos/total", token = pegar_token(), html = "";
+	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			buscarProdutos(obj.total, valorTotalPorPagina, valorAux,
+					selecionado);
+		}
+	}
+	xmlhttp.send();
+}
+
+function valorEQauntidadeDeBotoes(total) {
+	var obj = {
+		quantidadeDePaginas : 0,
+		valorDasPaginas : []
+	};
+	var aux = 0;
+	for (i = 0; i < total; i++) {
+		if (i % valorTotalPorPagina == 0) {
+			obj.valorDasPaginas[aux] = i;
+			obj.quantidadeDePaginas = obj.quantidadeDePaginas + 1;
+			aux = aux + 1;
+		}
+	}
+	console.log(obj);
+
+	return obj;
+}
+
+function botoesPaginacao(obj, pagina, selecionado) {
+	if (selecionado === undefined) {
+		selecionado = 1;
+	}
+	var container = document.getElementById("paginacao");
+	var html = '';
+	for (i = 0; i < obj.quantidadeDePaginas; i++) {
+		if (i === 0) {
+			if (selecionado === 1) {
+				html += '<button type="button" class="botao-opacity" onclick="exibir'
+						+ pagina
+						+ '('
+						+ obj.valorDasPaginas[selecionado - 1]
+						+ ',' + (i + selecionado) + ')" disabled> < </button>';
+			} else {
+				html += '<button type="button" class="botao-selecionavel" onclick="exibir'
+						+ pagina
+						+ '('
+						+ obj.valorDasPaginas[selecionado - 2]
+						+ ',' + (selecionado - 1) + ')"> < </button>';
+			}
+		}
+		html += '<button type="button" id="botao_' + (i + 1)
+				+ '" onclick="exibir' + pagina + '(' + obj.valorDasPaginas[i]
+				+ ',' + (i + 1) + ')">' + (i + 1) + '</button>';
+		if (i === (obj.quantidadeDePaginas - 1)) {
+			if (selecionado <= (obj.quantidadeDePaginas - 1)) {
+				html += '<button type="button" class="botao-selecionavel" onclick="exibir'
+						+ pagina
+						+ '('
+						+ obj.valorDasPaginas[selecionado]
+						+ ','
+						+ (selecionado + 1) + ')"> > </button>';
+			} else {
+				html += '<button type="button" class="botao-opacity" onclick="exibir'
+						+ pagina
+						+ '('
+						+ obj.valorDasPaginas[selecionado - 1]
+						+ ',' + (i + 1) + ')" disabled> > </button>';
+			}
+		}
+	}
+	container.innerHTML = html;
+	botaoSelecionado(selecionado);
+}
+
+function botaoSelecionado(selecionado) {
+	document.getElementById("botao_" + selecionado).className = "selecionado-botao";
+}
+
+function buscarDestaquesPelosBotoes(valorBotao) {
+	exibirDestaques(valorBotao);
+}
+
+function buscarDestaques(total, totalPorPagina, valorAux, selecionado) {
+	if (valorAux === undefined) {
+		valorAux = 0;
+	}
+
 	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/destaques";
-	var token = pegar_token();
-	var html = "";
+	var url = base_url + "/destaques/" + valorAux + "/" + totalPorPagina;
+	var token = pegar_token(), html = "";
 	xmlhttp.open("GET", url, true);
 	xmlhttp.setRequestHeader("Content-type", "application/json");
 	xmlhttp.setRequestHeader("Authorization", token);
@@ -373,11 +497,17 @@ function exibirDestaques() {
 	}
 
 	xmlhttp.send();
+
+	botoesPaginacao(valorEQauntidadeDeBotoes(total), "Destaques", selecionado);
 }
 
-function exibirServicos() {
+function buscarServicos(total, totalPorPagina, valorAux, selecionado) {
+	if (valorAux === undefined) {
+		valorAux = 0;
+	}
+
 	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/servicos";
+	var url = base_url + "/servicos/" + valorAux + "/" + totalPorPagina;
 	var token = pegar_token();
 	var html = "";
 	xmlhttp.open("GET", url, true);
@@ -468,12 +598,16 @@ function exibirServicos() {
 	}
 
 	xmlhttp.send();
-
+	botoesPaginacao(valorEQauntidadeDeBotoes(total), "Servicos", selecionado);
 }
 
-function exibirProdutos() {
+function buscarProdutos(total, totalPorPagina, valorAux, selecionado) {
+	if (valorAux === undefined) {
+		valorAux = 0;
+	}
+
 	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/produtos";
+	var url = base_url + "/produtos/" + valorAux + "/" + totalPorPagina;
 	var token = pegar_token();
 	var html = "";
 	xmlhttp.open("GET", url, true);
@@ -564,7 +698,7 @@ function exibirProdutos() {
 	}
 
 	xmlhttp.send();
-
+	botoesPaginacao(valorEQauntidadeDeBotoes(total), "Produtos", selecionado);
 }
 
 if (pegarPaginaAtual() === "destaques") {
