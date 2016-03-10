@@ -18,9 +18,9 @@ function statusDisplay(data) {
 	}
 }
 
-function novoDestaque() {
-	window.location.href = "destaque.html";
-}
+//function novoDestaque() {
+//	window.location.href = "destaque.html";
+//}
 
 function novoServico() {
 	window.location.href = "servico.html";

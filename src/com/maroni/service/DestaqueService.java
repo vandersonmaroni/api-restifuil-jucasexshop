@@ -14,9 +14,9 @@ public class DestaqueService implements Serializable {
 	@Inject
 	private DestaqueDAO dao;
 
-	public void save(Destaque destaque) {
-		dao.save(destaque);
-	}
+//	public void save(Destaque destaque) {
+//		dao.save(destaque);
+//	}
 
 	public void update(Destaque destaque) {
 		dao.update(destaque);

@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -62,12 +61,12 @@ public class DestaqueExpose implements Serializable {
 		return Response.ok(json, MediaType.APPLICATION_JSON).build();
 	}
 
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response cadastrar(Destaque destaque) {
-		service.save(destaque);
-		return Response.ok(destaque, MediaType.APPLICATION_JSON).build();
-	}
+//	@POST
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response cadastrar(Destaque destaque) {
+//		service.save(destaque);
+//		return Response.ok(destaque, MediaType.APPLICATION_JSON).build();
+//	}
 
 	@PUT
 	@Path("{id}")
