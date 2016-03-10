@@ -478,6 +478,10 @@ th {
 	width: 100%;
 }
 
+.input-image {
+	padding-left: 0 !important;
+}
+
 .textarea-restrict textarea {
 	height: 140px !important;
 	resize: none;
@@ -514,7 +518,7 @@ th {
 	margin-right: 10px;
 }
 
-.botao-opacity{
+.botao-opacity {
 	opacity: 0.6;
 }
 
@@ -524,7 +528,7 @@ th {
 	border: 1px solid #C2185B !important;
 }
 
-.selecionado-botao{
+.selecionado-botao {
 	background-color: #FFF !important;
 	color: #C2185B !important;
 	border: 1px solid #C2185B !important;
@@ -540,6 +544,51 @@ th {
 	height: 20px;
 }
 
+/* Começo botão file */
+.customFileInput {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+.clearfix:before, .clearfix:after {
+	content: " ";
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.customFileInput input {
+	position: absolute;
+	visibility: hidden;
+	width: 0 !important;
+}
+
+.customFileInput .button, .customFileInput .fileName {
+	cursor: pointer;
+	font-size: 0.9em;
+	line-height: 36px;
+	padding: 0 15px;
+}
+
+.customFileInput .button {
+	background-color: #C2185B;
+	color: #FFF;
+	margin-left: 0px;
+	margin-top: 0;
+	margin-left: 0px;
+}
+
+.customFileInput .fileName {
+	color: #000;
+	width: 70% !important;
+	word-wrap: break-word;
+	font-size: 0.7em !important;
+}
+
+/* Fim botão file */
 @media ( max-width : 35.625em) { /*570px*/
 	.container-banner {
 		height: 170px;

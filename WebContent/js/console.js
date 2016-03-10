@@ -359,3 +359,7 @@ function toDate(dateStr) {
 	var ano = parts[0];
 	return dia + "/" + mes + "/" + ano;
 }
+
+function mostrarNomeDoArquivo(inputFile) {
+    inputFile.offsetParent.getElementsByClassName('fileName')[0].innerHTML = inputFile.value.replace(/\\/g, '/').split('/').pop();
+}
