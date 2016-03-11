@@ -65,7 +65,8 @@ public class ProdutoExpose implements Serializable {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Produto produto){
-		service.save(produto);
+		System.out.println(produto.getImagem());
+//		service.save(produto);
 		return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 	}
 	

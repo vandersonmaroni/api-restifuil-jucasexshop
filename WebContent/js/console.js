@@ -21,7 +21,6 @@ if (getId === "") {
 	xmlhttp.open("GET", url, true);
 	xmlhttp.setRequestHeader("Content-type", "application/json");
 	xmlhttp.setRequestHeader("Authorization", token);
-
 	xmlhttp.onload = function(e) {
 		if (xmlhttp.status == 200) {
 			var obj = JSON.parse(xmlhttp.responseText);
@@ -35,7 +34,6 @@ if (getId === "") {
 			alert("ID não existe");
 		}
 	}
-
 	xmlhttp.send();
 }
 
@@ -71,41 +69,41 @@ function pegarPaginaAtual() {
 	return url;
 }
 
-function cadastrarDestaque() {
-	var e = document.getElementById("status");
-	var status = e.options[e.selectedIndex].value;
-	var titulo = document.getElementById("titulo").value;
-	var descricao = document.getElementById("descricao").value;
-	var imagem = document.getElementById("imagem").value;
-
-	if (!validarCampos(titulo, status, descricao, imagem)) {
-		return;
-	}
-
-	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
-			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
-	var json = JSON.stringify(stringJson);
-	json = JSON.parse(json);
-
-	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/destaques";
-	xmlhttp.open("POST", url, true);
-	xmlhttp.setRequestHeader("Content-type", "application/json");
-
-	xmlhttp.onload = function(e) {
-		if (xmlhttp.status == 200) {
-			var obj = JSON.parse(xmlhttp.responseText);
-			window.location.href = "destaques.html";
-		} else {
-			alert("Erro ao inserir o Destaque");
-		}
-	}
-
-	xmlhttp.onerror = function(e) {
-		console.log("Deu erro");
-	}
-	xmlhttp.send(json);
-}
+// function cadastrarDestaque() {
+// var e = document.getElementById("status");
+// var status = e.options[e.selectedIndex].value;
+// var titulo = document.getElementById("titulo").value;
+// var descricao = document.getElementById("descricao").value;
+// var imagem = document.getElementById("imagem").value;
+//
+// if (!validarCampos(titulo, status, descricao, imagem)) {
+// return;
+// }
+//
+// var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
+// + '", "imagem": "' + imagem + '", "status": "' + status + '" }';
+// var json = JSON.stringify(stringJson);
+// json = JSON.parse(json);
+//
+// var xmlhttp = new XMLHttpRequest();
+// var url = base_url + "/destaques";
+// xmlhttp.open("POST", url, true);
+// xmlhttp.setRequestHeader("Content-type", "application/json");
+//
+// xmlhttp.onload = function(e) {
+// if (xmlhttp.status == 200) {
+// var obj = JSON.parse(xmlhttp.responseText);
+// window.location.href = "destaques.html";
+// } else {
+// alert("Erro ao inserir o Destaque");
+// }
+// }
+//
+// xmlhttp.onerror = function(e) {
+// console.log("Deu erro");
+// }
+// xmlhttp.send(json);
+// }
 
 function cadastrarServico() {
 	var e = document.getElementById("status");
@@ -134,42 +132,6 @@ function cadastrarServico() {
 			window.location.href = "servicos.html";
 		} else {
 			alert("Erro ao inserir o Serviço");
-		}
-	}
-
-	xmlhttp.onerror = function(e) {
-		console.log("Deu erro");
-	}
-	xmlhttp.send(json);
-}
-
-function cadastrarProduto() {
-	var e = document.getElementById("status");
-	var status = e.options[e.selectedIndex].value;
-	var titulo = document.getElementById("titulo").value;
-	var descricao = document.getElementById("descricao").value;
-	var imagem = document.getElementById("imagem").value;
-
-	if (!validarCampos(titulo, status, descricao, imagem)) {
-		return;
-	}
-
-	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
-			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
-	var json = JSON.stringify(stringJson);
-	json = JSON.parse(json);
-
-	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/produtos";
-	xmlhttp.open("POST", url, true);
-	xmlhttp.setRequestHeader("Content-type", "application/json");
-
-	xmlhttp.onload = function(e) {
-		if (xmlhttp.status == 200) {
-			var obj = JSON.parse(xmlhttp.responseText);
-			window.location.href = "produtos.html";
-		} else {
-			alert("Erro ao inserir o Produto");
 		}
 	}
 
@@ -216,7 +178,6 @@ function alterarDestaque() {
 	}
 	xmlhttp.send(json);
 }
-
 
 function alterarServico() {
 	var e = document.getElementById("status");
@@ -361,5 +322,94 @@ function toDate(dateStr) {
 }
 
 function mostrarNomeDoArquivo(inputFile) {
-    inputFile.offsetParent.getElementsByClassName('fileName')[0].innerHTML = inputFile.value.replace(/\\/g, '/').split('/').pop();
+	inputFile.offsetParent.getElementsByClassName('fileName')[0].innerHTML = inputFile.value
+			.replace(/\\/g, '/').split('/').pop();
 }
+
+// Parte de upload de imagem
+
+File.prototype.convertToBase64 = function(callback) {
+	var FR = new FileReader();
+	FR.onload = function(e) {
+		callback(e.target.result)
+	};
+	FR.readAsDataURL(this);
+}
+
+var aux;
+function cadastrarProduto(fileBase64) {
+	var e = document.getElementById("status");
+	var status = e.options[e.selectedIndex].value;
+	var titulo = document.getElementById("titulo").value;
+	var descricao = document.getElementById("descricao").value;
+	var imagem = fileBase64;
+
+	console.log(document.getElementById("imagem"));
+
+	if (!validarCampos(titulo, status, descricao, imagem)) {
+		return;
+	}
+
+	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
+			+ '", "imagem": "' + imagem + '", "status": "' + status + '"}';
+	var json = JSON.stringify(stringJson);
+	json = JSON.parse(json);
+
+	var xmlhttp = new XMLHttpRequest();
+	var url = base_url + "/produtos";
+	xmlhttp.open("POST", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/json");
+
+	xmlhttp.upload.addEventListener("load", function() {
+		console.log('upload complete!');
+	}, false);
+	// progresso
+	xmlhttp.upload.addEventListener("progress", function(evt) {
+		if (evt.lengthComputable) {
+			console.log((evt.loaded / evt.total) * 100);
+		} else {
+			console.log("Error uploading.");
+		}
+	}, false);
+
+	xmlhttp.onload = function(e) {
+		if (xmlhttp.status == 200) {
+			var obj = JSON.parse(xmlhttp.responseText);
+			window.location.href = "produtos.html";
+		} else {
+			alert("Erro ao inserir o Produto");
+		}
+	}
+
+	xmlhttp.onerror = function(e) {
+		console.log("Deu erro");
+	}
+
+	xmlhttp.send(json);
+	// quando estiver pronto
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4) {
+			console.log("Status: " + this.status);
+			console.log("readyState: " + this.readyState);
+			console.log("responseText: (" + this.responseText + " )");
+		}
+	};
+}
+
+var controls = {
+	init : function() {
+		var buttonEnviar = document.getElementById("cadastrar");
+
+		buttonEnviar.addEventListener("click", controls.handleFiles, false);
+	},
+
+	handleFiles : function() {
+		var inputFile = document.getElementById("imagem");
+		inputFile.files[0].convertToBase64(function(base64) {
+			cadastrarProduto(base64);
+		});
+	}
+
+};
+
+window.addEventListener("load", controls.init, false);
