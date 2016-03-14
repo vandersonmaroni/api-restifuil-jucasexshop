@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import com.maroni.model.JsonTotal;
 import com.maroni.model.Servico;
 import com.maroni.service.ServicoService;
+import com.maroni.util.util.Imagem;
 
 
 @Path("/servicos")
@@ -62,6 +63,7 @@ public class ServicoExpose implements Serializable{
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Servico servico){
+		servico.setImagem(new Imagem().converterBase64ParaImagem(servico.getImagem()));
 		service.save(servico);
 		return Response.ok(servico, MediaType.APPLICATION_JSON).build();
 	}

@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import com.maroni.model.JsonTotal;
 import com.maroni.model.Produto;
 import com.maroni.service.ProdutoService;
+import com.maroni.util.util.Imagem;
 
 @Path("/produtos")
 @RequestScoped
@@ -27,24 +28,24 @@ public class ProdutoExpose implements Serializable {
 
 	@Inject
 	private ProdutoService service;
-	
+
 	/**
 	 * @author Vanderson Maroni | 17/02/2016
 	 * @return
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Produto> buscarTodos(){
+	public List<Produto> buscarTodos() {
 		return service.findAll();
 	}
-	
+
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Produto buscarPorId(@PathParam("id") String id){
+	public Produto buscarPorId(@PathParam("id") String id) {
 		return service.findById(Integer.parseInt(id));
 	}
-	
+
 	@GET
 	@Path("{quantidade}/{quantidadeMaximaPorPagina}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -61,15 +62,15 @@ public class ProdutoExpose implements Serializable {
 		json.setTotal((Long) quantidadeTotalDeDestaques);
 		return Response.ok(json, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response cadastrar(Produto produto){
-		System.out.println(produto.getImagem());
-//		service.save(produto);
+	public Response cadastrar(Produto produto) {
+		produto.setImagem(new Imagem().converterBase64ParaImagem(produto.getImagem()));
+		service.save(produto);
 		return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -78,11 +79,11 @@ public class ProdutoExpose implements Serializable {
 		service.update(produto);
 		return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@DELETE
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response remover(@PathParam("id") String id){
+	public Response remover(@PathParam("id") String id) {
 		service.delete(Integer.parseInt(id));
 		return Response.ok(MediaType.APPLICATION_JSON).build();
 	}
