@@ -39,7 +39,12 @@
 				</div>
 				<div class="duo-inputs">
 					<div class="input-restrict espacamento-input">
-						<input type="text" id="imagem" value="" placeholder="imagem">
+						<!-- <input type="text" id="imagem" value="" placeholder="imagem"> -->
+						<label class="customFileInput clearfix">
+							<div class="button">Escolher um arquivo</div>
+							<div class="fileName" id="fileName"></div> 
+							<input type="file" name="imagem[]" id="imagem" onchange="mostrarNomeDoArquivo(this)" accept=".jpg">
+						</label>
 					</div>
 					<div class="input-restrict">
 						<input type="text" id="dataCadastro" value="" placeholder="Data de cadastro" disabled >

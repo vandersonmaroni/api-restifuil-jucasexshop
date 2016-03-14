@@ -72,10 +72,13 @@ public class ProdutoExpose implements Serializable {
 	}
 
 	@PUT
-	@Path("{id}")
+	@Path("{id}/{hasAlteracaoImagem}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response alterar(@PathParam("id") String id, Produto produto) {
+	public Response alterar(@PathParam("id") String id, @PathParam("hasAlteracaoImagem") boolean hasAlteracaoImagem, Produto produto) {
 		produto.setId(Integer.parseInt(id));
+		if(hasAlteracaoImagem){
+			produto.setImagem(new Imagem().converterBase64ParaImagem(produto.getImagem()));
+		}
 		service.update(produto);
 		return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 	}

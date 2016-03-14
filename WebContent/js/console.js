@@ -29,7 +29,7 @@ if (getId === "") {
 			document.getElementById("descricao").value = obj.descricao;
 			document.getElementById("dataCadastro").value = toDate(obj.dataCadastro);
 			document.getElementById("status").value = obj.status;
-			document.getElementById("imagem").value = obj.imagem;
+			document.getElementById("fileName").innerHTML = obj.imagem;
 		} else {
 			alert("ID não existe");
 		}
@@ -143,7 +143,7 @@ function alterarDestaque() {
 	xmlhttp.send(json);
 }
 
-function alterarServico() {
+function alterarServico(fileBase64) {
 	var e = document.getElementById("status");
 	var status = e.options[e.selectedIndex].value;
 	var titulo = document.getElementById("titulo").value;
@@ -181,14 +181,21 @@ function alterarServico() {
 	xmlhttp.send(json);
 }
 
-function alterarProduto() {
+function alterarProduto(fileBase64) {
 	var e = document.getElementById("status");
 	var status = e.options[e.selectedIndex].value;
 	var titulo = document.getElementById("titulo").value;
 	var descricao = document.getElementById("descricao").value;
 	var imagem = document.getElementById("imagem").value;
-	var token = pegar_token();
+	var hasAlteracaoImagem = true;
+	if (fileBase64 === undefined) {
+		imagem = document.getElementById("fileName").innerHTML;
+		hasAlteracaoImagem = false;
+	} else {
+		imagem = fileBase64;
+	}
 
+	var token = pegar_token();
 	if (!validarCampos(titulo, status, descricao, imagem)) {
 		return;
 	}
@@ -199,24 +206,45 @@ function alterarProduto() {
 	json = JSON.parse(json);
 
 	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/produtos/" + getId;
+	var url = base_url + "/produtos/" + getId + "/" + hasAlteracaoImagem;
 	xmlhttp.open("PUT", url, true);
 	xmlhttp.setRequestHeader("Content-type", "application/json");
 	xmlhttp.setRequestHeader("Authorization", token);
+
+	xmlhttp.upload.addEventListener("load", function() {
+		console.log('upload complete!');
+	}, false);
+	// progresso
+	xmlhttp.upload.addEventListener("progress", function(evt) {
+		if (evt.lengthComputable) {
+			console.log((evt.loaded / evt.total) * 100);
+		} else {
+			console.log("Error uploading.");
+		}
+	}, false);
 
 	xmlhttp.onload = function(e) {
 		if (xmlhttp.status == 200) {
 			var obj = JSON.parse(xmlhttp.responseText);
 			window.location.href = "produtos.html";
 		} else {
-			alert("Erro ao alterar o Produto");
+			alert("Erro ao inserir o Produto");
 		}
 	}
 
 	xmlhttp.onerror = function(e) {
 		console.log("Deu erro");
 	}
+
 	xmlhttp.send(json);
+	// quando estiver pronto
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4) {
+			console.log("Status: " + this.status);
+			console.log("readyState: " + this.readyState);
+			console.log("responseText: (" + this.responseText + " )");
+		}
+	};
 }
 
 function validarCampos(titulo, status, descricao, imagem) {
@@ -350,7 +378,7 @@ function cadastrarProduto(fileBase64) {
 
 	xmlhttp.send(json);
 	// quando estiver pronto
-	xhr.onreadystatechange = function() {
+	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4) {
 			console.log("Status: " + this.status);
 			console.log("readyState: " + this.readyState);
@@ -358,7 +386,6 @@ function cadastrarProduto(fileBase64) {
 		}
 	};
 }
-
 
 function cadastrarServico(fileBase64) {
 	var e = document.getElementById("status");
@@ -410,7 +437,7 @@ function cadastrarServico(fileBase64) {
 
 	xmlhttp.send(json);
 	// quando estiver pronto
-	xhr.onreadystatechange = function() {
+	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4) {
 			console.log("Status: " + this.status);
 			console.log("readyState: " + this.readyState);
@@ -421,21 +448,52 @@ function cadastrarServico(fileBase64) {
 
 var controls = {
 	init : function() {
-		var buttonEnviar = document.getElementById("cadastrar");
 
-		buttonEnviar.addEventListener("click", controls.handleFiles, false);
+		if (getId === "") {
+			var buttonEnviar = document.getElementById("cadastrar");
+			buttonEnviar.addEventListener("click", controls.handleFiles, false);
+		} else {
+			var buttonAlterar = document.getElementById("alterar");
+			buttonAlterar
+					.addEventListener("click", controls.handleFiles, false);
+		}
+
 	},
 
 	handleFiles : function() {
 		var inputFile = document.getElementById("imagem");
-		inputFile.files[0].convertToBase64(function(base64) {
+		if (inputFile.files[0] === undefined) {
 			if (pegarPaginaAtual() === "servico") {
-				cadastrarServico(base64);
+				if (getId === "") {
+					cadastrarServico(undefined);
+				} else {
+					alterarServico(undefined);
+				}
 			} else {
-				cadastrarProduto(base64);
+				if (getId === "") {
+					cadastrarProduto(undefined);
+				} else {
+					alterarProduto(undefined);
+				}
 			}
-			
-		});
+		} else {
+			inputFile.files[0].convertToBase64(function(base64) {
+				if (pegarPaginaAtual() === "servico") {
+					if (getId === "") {
+						cadastrarServico(base64);
+					} else {
+						alterarServico(base64);
+					}
+				} else {
+					if (getId === "") {
+						cadastrarProduto(base64);
+					} else {
+						alterarProduto(base64);
+					}
+				}
+			});
+		}
+
 	}
 
 };
