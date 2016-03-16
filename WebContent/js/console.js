@@ -31,7 +31,6 @@ if (getId === "") {
 			document.getElementById("dataCadastro").value = toDate(obj.dataCadastro);
 			document.getElementById("status").value = obj.status;
 			document.getElementById("fileName").innerHTML = obj.imagem;
-			document.getElementById("mostrarImagem").src = base_img;
 		} else {
 			alert("ID não existe");
 		}
@@ -307,18 +306,20 @@ function cancelarProduto() {
 }
 
 function toDate(dateStr) {
-	var parts = dateStr.split("-");
-	var parts2 = parts[2].split("T");
-	var dia = parts2[0];
-	var mes = parts[1];
-	var ano = parts[0];
-	return dia + "/" + mes + "/" + ano;
+	if (dateStr) {
+		var parts = dateStr.split("-");
+		var parts2 = parts[2].split("T");
+		var dia = parts2[0];
+		var mes = parts[1];
+		var ano = parts[0];
+		return dia + "/" + mes + "/" + ano;
+	}
 }
 
 function mostrarNomeDoArquivo(inputFile) {
 	inputFile.offsetParent.getElementsByClassName('fileName')[0].innerHTML = inputFile.value
 			.replace(/\\/g, '/').split('/').pop();
-	console.log()
+	previewFile();
 }
 
 // Parte de upload de imagem
@@ -336,9 +337,11 @@ function cadastrarProduto(fileBase64) {
 	var status = e.options[e.selectedIndex].value;
 	var titulo = document.getElementById("titulo").value;
 	var descricao = document.getElementById("descricao").value;
-	var imagem = fileBase64;
 
+	var imagem = document.getElementById("image-preview").src;
 	console.log(document.getElementById("imagem"));
+
+	return;
 
 	if (!validarCampos(titulo, status, descricao, imagem)) {
 		return;
@@ -501,29 +504,72 @@ var controls = {
 
 window.addEventListener("load", controls.init, false);
 
-//JCrop
+// JCrop
 
-$(function(){
-	 
-    $('#imagem').Jcrop({
-        aspectRatio: 1,
-        onSelect: updateCoords
-    });
+function previewFile() {
+	var preview = document.querySelector('img'); // selects the query named
 
-});
+	// img
+	var file = document.querySelector('input[type=file]').files[0]; // sames as
+	// here
+	var reader = new FileReader();
 
-function updateCoords(c)
-{
-    $('#x').val(c.x);
-    $('#y').val(c.y);
-    $('#w').val(c.w);
-    $('#h').val(c.h);
-};
+	reader.onloadend = function() {
+		preview.src = reader.result;
+		document.getElementById("crop-iamge").style.display = "flex";
+		image();
+		document.getElementById("image-preview").src = document
+				.getElementById("mostrarImagem").src;
+	}
 
-function checkCoords()
-{
-    if (parseInt($('#w').val())) return true;
-    alert('Selecione a região para recortar.');
-    return false;
-};
+	if (file) {
+		reader.readAsDataURL(file);
+	} else {
+		preview.src = "";
+	}
 
+}
+
+function image() {
+	jQuery(function($) {
+
+		var api, boundx, boundy;
+
+		$('#mostrarImagem').Jcrop({
+			onChange : updatePreview,
+			onSelect : updatePreview,
+			bgOpacity : 0.5,
+			bgColor : 'black',
+			addClass : 'jcrop-dark',
+			aspectRatio : 1,
+			boxWidth : 650,
+			boxHeight : 400
+		}, function() {
+			// Use the API to get the real image size
+			var bounds = this.getBounds();
+			boundx = bounds[0];
+			boundy = bounds[1];
+			// Store the API in the jcrop_api variable
+			jcrop_api = this;
+		});
+
+		function updatePreview(c) {
+			if (parseInt(c.w) > 0) {
+				var rx = 100 / c.w;
+				var ry = 100 / c.h;
+
+				$('#image-preview').css({
+					width : Math.round(rx * boundx) + 'px',
+					height : Math.round(ry * boundy) + 'px',
+					marginLeft : '-' + Math.round(rx * c.x) + 'px',
+					marginTop : '-' + Math.round(ry * c.y) + 'px'
+				});
+			}
+		}
+		;
+	});
+}
+
+function crop() {
+
+}

@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="../css/style.css">
 <meta name="viewport" content="width=device-width, user-scalable=no">
 <!-- JCrop -->
+<link rel="stylesheet"
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/vader/jquery-ui.css"
+	type="text/css" />
 <link rel="stylesheet" href="../css/jquery.Jcrop.css" type="text/css" />
 </head>
 <body>
@@ -46,8 +49,7 @@
 							<div class="button">Escolher um arquivo</div>
 							<div class="fileName" id="fileName"></div> <input type="file"
 							name="imagem[]" id="imagem" onchange="mostrarNomeDoArquivo(this)"
-							accept=".jpg"> 
-							<img id="mostrarImagem">
+							accept=".jpg">
 						</label>
 					</div>
 					<div class="input-restrict">
@@ -55,13 +57,14 @@
 							placeholder="Data de cadastro" disabled>
 					</div>
 				</div>
-				<div class="textarea-restrict">
-					<form onsubmit="return checkCoords();">
-						<input type="hidden" id="x" name="x" /> <input type="hidden"
-							id="y" name="y" /> <input type="hidden" id="w" name="w" /> <input
-							type="hidden" id="h" name="h" /> <input type="submit"
-							value="Crop Image" />
-					</form>
+				<div class="crop-iamge" id="crop-iamge">
+					<div class="preview-image">
+						<img id="mostrarImagem" />
+						<button type="button" id="crop">Crop</button>
+					</div>
+					<div class="preview-crop-image">
+						<img id="image-preview" class="jcrop-preview" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -72,8 +75,12 @@
 		</div>
 	</div>
 	<!-- JQuery e JCrop -->
-	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-	<script src="../js/jquery.Jcrop.js"></script>
+	<script src="../js/jquery.min.js" type="text/javascript"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
+		type="text/javascript"></script>
+	<script src="../js/jquery.color.js" type="text/javascript"></script>
+	<script src="../js/jquery.Jcrop.js" type="text/javascript"></script>
 	<!-- Default -->
 	<script src="../js/console.js"></script>
 </body>

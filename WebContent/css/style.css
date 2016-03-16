@@ -489,6 +489,31 @@ th {
 	padding: 0 20px !important;
 }
 
+.crop-iamge {
+	display: none;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-top: 15px;
+}
+
+#mostrarImagem {
+	border: 1px solid #c6c4c4 !important;
+	border-radius: 3px;
+}
+
+.preview-crop-image {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+}
+
+.preview-image {
+	width: 49.5% !important;
+	margin-right: 1%;
+}
+
 .formulario-alterar, .formulario-incluir, .formulario {
 	display: none;
 }
@@ -544,7 +569,6 @@ th {
 	height: 20px;
 }
 
-/* Começo botão file */
 .customFileInput {
 	display: flex;
 	flex-direction: row;
@@ -588,7 +612,6 @@ th {
 	font-size: 0.7em !important;
 }
 
-/* Fim botão file */
 @media ( max-width : 35.625em) { /*570px*/
 	.container-banner {
 		height: 170px;
