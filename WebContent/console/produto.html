@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Produtos</title>
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../css/style.css">
 <meta name="viewport" content="width=device-width, user-scalable=no">
+<!-- JCrop -->
+<link rel="stylesheet" href="../css/jquery.Jcrop.css" type="text/css" />
 </head>
 <body>
 	<header class="header-console">
@@ -42,14 +44,24 @@
 						<!-- <input type="text" id="imagem" value="" placeholder="imagem"> -->
 						<label class="customFileInput clearfix">
 							<div class="button">Escolher um arquivo</div>
-							<div class="fileName" id="fileName"></div> 
-							<input type="file" name="imagem[]" id="imagem" onchange="mostrarNomeDoArquivo(this)" accept=".jpg">
+							<div class="fileName" id="fileName"></div> <input type="file"
+							name="imagem[]" id="imagem" onchange="mostrarNomeDoArquivo(this)"
+							accept=".jpg"> 
+							<img id="mostrarImagem">
 						</label>
 					</div>
 					<div class="input-restrict">
 						<input type="text" id="dataCadastro" value=""
 							placeholder="Data de cadastro" disabled>
 					</div>
+				</div>
+				<div class="textarea-restrict">
+					<form onsubmit="return checkCoords();">
+						<input type="hidden" id="x" name="x" /> <input type="hidden"
+							id="y" name="y" /> <input type="hidden" id="w" name="w" /> <input
+							type="hidden" id="h" name="h" /> <input type="submit"
+							value="Crop Image" />
+					</form>
 				</div>
 			</div>
 		</div>
@@ -59,6 +71,10 @@
 			<button type="button" onclick="cancelarProduto()">Cancelar</button>
 		</div>
 	</div>
+	<!-- JQuery e JCrop -->
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="../js/jquery.Jcrop.js"></script>
+	<!-- Default -->
 	<script src="../js/console.js"></script>
 </body>
 </html>

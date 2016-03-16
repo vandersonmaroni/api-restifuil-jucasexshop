@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Produtos</title>
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../css/style.css">
 <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
@@ -18,12 +18,14 @@
 
 		<table id="tabela-produto">
 		</table>
+		<div id="paginacao" class="paginacao"></div>
 
 		<div class="formulario-incluir formulario-alterar">
 			<div class="inputs">
 				<div class="duo-inputs">
 					<div class="input-restrict espacamento-input">
-						<input type="text" id="titulo" value="" placeholder="Titulo" disabled>
+						<input type="text" id="titulo" value="" placeholder="Titulo"
+							disabled>
 					</div>
 					<div class="input-restrict">
 						<select id="status" name="status" disabled>
@@ -34,23 +36,26 @@
 					</div>
 				</div>
 				<div class="textarea-restrict" id="descricaoDisabled">
-					<textarea id="descricao" maxlength="500" placeholder="Descricao" disabled></textarea>
+					<textarea id="descricao" maxlength="500" placeholder="Descricao"
+						disabled></textarea>
 				</div>
 				<div class="duo-inputs">
 					<div class="input-restrict espacamento-input">
-						<input type="text" id="imagem" value="" placeholder="imagem" disabled>
+						<input type="text" id="imagem" value="" placeholder="imagem"
+							disabled>
 					</div>
 					<div class="input-restrict">
-						<input type="text" id="dataCadastro" value="" placeholder="Data de cadastro" disabled>
+						<input type="text" id="dataCadastro" value=""
+							placeholder="Data de cadastro" disabled>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div id="paginacao" class="paginacao"></div>
+
 		<div class="botoes">
 			<button type="button" id="novo" onclick="novoProduto()">Novo</button>
-			<button type="button" class="formulario-incluir" onclick="cancelarProduto()">Cancelar</button>
+			<button type="button" class="formulario-incluir"
+				onclick="cancelarProduto()">Cancelar</button>
 		</div>
 	</div>
 	<script src="../js/consoles.js"></script>
