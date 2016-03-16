@@ -1,6 +1,7 @@
 // Console
 var getId = window.location.search.replace("?id=", "");
 var base_url = "http://localhost:8080/api-restiful/api";
+var base_img = "http://localhost:8080/api-restiful/img/produto-tres.jpg";
 
 if (getId === "") {
 	mostarCadastrar();
@@ -30,6 +31,7 @@ if (getId === "") {
 			document.getElementById("dataCadastro").value = toDate(obj.dataCadastro);
 			document.getElementById("status").value = obj.status;
 			document.getElementById("fileName").innerHTML = obj.imagem;
+			document.getElementById("mostrarImagem").src = base_img;
 		} else {
 			alert("ID não existe");
 		}
@@ -316,6 +318,7 @@ function toDate(dateStr) {
 function mostrarNomeDoArquivo(inputFile) {
 	inputFile.offsetParent.getElementsByClassName('fileName')[0].innerHTML = inputFile.value
 			.replace(/\\/g, '/').split('/').pop();
+	console.log()
 }
 
 // Parte de upload de imagem
@@ -393,8 +396,6 @@ function cadastrarServico(fileBase64) {
 	var titulo = document.getElementById("titulo").value;
 	var descricao = document.getElementById("descricao").value;
 	var imagem = fileBase64;
-
-	console.log(document.getElementById("imagem"));
 
 	if (!validarCampos(titulo, status, descricao, imagem)) {
 		return;
@@ -499,3 +500,30 @@ var controls = {
 };
 
 window.addEventListener("load", controls.init, false);
+
+//JCrop
+
+$(function(){
+	 
+    $('#imagem').Jcrop({
+        aspectRatio: 1,
+        onSelect: updateCoords
+    });
+
+});
+
+function updateCoords(c)
+{
+    $('#x').val(c.x);
+    $('#y').val(c.y);
+    $('#w').val(c.w);
+    $('#h').val(c.h);
+};
+
+function checkCoords()
+{
+    if (parseInt($('#w').val())) return true;
+    alert('Selecione a região para recortar.');
+    return false;
+};
+
