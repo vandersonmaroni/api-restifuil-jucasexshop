@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import com.maroni.model.JsonTotal;
 import com.maroni.model.Produto;
 import com.maroni.service.ProdutoService;
-import com.maroni.util.util.Imagem;
+import com.maroni.util.util.ImagemUtil;
 
 @Path("/produtos")
 @RequestScoped
@@ -65,10 +65,10 @@ public class ProdutoExpose implements Serializable {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response cadastrar(Produto produto) {
-		produto.setImagem(new Imagem().converterBase64ParaImagem(produto.getImagem()));
-		service.save(produto);
-		return Response.ok(produto, MediaType.APPLICATION_JSON).build();
+	public void cadastrar(Produto produto) {
+		System.out.println(produto.getDimensoes());
+		produto.setImagem(new ImagemUtil().converterBase64ParaImagem(produto.getImagem()));
+//		service.save(produto);
 	}
 
 	@PUT
@@ -77,7 +77,7 @@ public class ProdutoExpose implements Serializable {
 	public Response alterar(@PathParam("id") String id, @PathParam("hasAlteracaoImagem") boolean hasAlteracaoImagem, Produto produto) {
 		produto.setId(Integer.parseInt(id));
 		if(hasAlteracaoImagem){
-			produto.setImagem(new Imagem().converterBase64ParaImagem(produto.getImagem()));
+			produto.setImagem(new ImagemUtil().converterBase64ParaImagem(produto.getImagem()));
 		}
 		service.update(produto);
 		return Response.ok(produto, MediaType.APPLICATION_JSON).build();

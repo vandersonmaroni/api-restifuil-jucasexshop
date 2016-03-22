@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
 
-public class Imagem {
+public class ImagemUtil {
 
 	private String nomeImagem;
 	private static String baseImage = System.getProperty("dir.imagens");

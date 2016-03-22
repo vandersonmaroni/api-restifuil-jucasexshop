@@ -8,26 +8,27 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.maroni.util.util.DimensoesImagem;
 
 /**
  * The persistent class for the produto database table.
- * 
  */
 
-@XmlType(name = "Produto", propOrder = { "id", "titulo", "descricao", "imagem", "status", "dataCadastro" })
+@XmlType(name = "Produto", propOrder = { "id", "titulo", "descricao", "imagem", "status", "dataCadastro", "dimensoes" })
 @XmlRootElement
 @Entity
-@Table(name="produto")
+@Table(name = "produto")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 8907088963278721216L;
 
 	@Id
 	private int id;
 
-	@Column(name="data_cadastro")
+	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 
 	@Lob
@@ -38,6 +39,9 @@ public class Produto implements Serializable {
 	private String titulo;
 
 	private byte status;
+
+	@Transient
+	private DimensoesImagem dimensoes;
 
 	public Produto() {
 	}
@@ -90,7 +94,22 @@ public class Produto implements Serializable {
 		this.status = status;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the dimensoes
+	 */
+	public DimensoesImagem getDimensoes() {
+		return dimensoes;
+	}
+
+	/**
+	 * @param dimensoes the dimensoes to set
+	 */
+	public void setDimensoes(DimensoesImagem dimensoes) {
+		this.dimensoes = dimensoes;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -101,7 +120,8 @@ public class Produto implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

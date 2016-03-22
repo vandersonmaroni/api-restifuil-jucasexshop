@@ -492,8 +492,6 @@ th {
 .crop-iamge {
 	display: none;
 	flex-direction: row;
-	justify-content: flex-start;
-	flex-wrap: wrap;
 	width: 100%;
 	margin-top: 15px;
 }
@@ -504,8 +502,8 @@ th {
 }
 
 .preview-crop-image {
-	width: 100px;
-	height: 100px;
+	width: 397px;
+	height: 206px;
 	overflow: hidden;
 }
 

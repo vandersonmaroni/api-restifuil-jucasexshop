@@ -333,24 +333,35 @@ File.prototype.convertToBase64 = function(callback) {
 }
 
 function cadastrarProduto(fileBase64) {
-	var e = document.getElementById("status");
-	var status = e.options[e.selectedIndex].value;
-	var titulo = document.getElementById("titulo").value;
-	var descricao = document.getElementById("descricao").value;
+	var produto = {
+		titulo : document.getElementById("titulo").value,
+		status : document.getElementById("status").options[document
+				.getElementById("status").selectedIndex].value,
+		descricao : document.getElementById("descricao").value,
+		imagem : fileBase64,
+		dimensoes : {
+			"height" : document.getElementById("h").value,
+			"width" : document.getElementById("w").value,
+			"x1" : document.getElementById("x1").value,
+			"x2" : document.getElementById("x2").value,
+			"y1" : document.getElementById("y1").value,
+			"y2" : document.getElementById("y2").value
+		}
+	};
 
-	var imagem = document.getElementById("image-preview").src;
-	console.log(document.getElementById("imagem"));
-
-	return;
-
-	if (!validarCampos(titulo, status, descricao, imagem)) {
+	if (!validarCampos(produto.titulo, produto.status, produto.descricao,
+			produto.imagem)) {
 		return;
 	}
 
-	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
-			+ '", "imagem": "' + imagem + '", "status": "' + status + '"}';
-	var json = JSON.stringify(stringJson);
-	json = JSON.parse(json);
+	if (!checkCoords()) {
+		alert("Recorte a imagem");
+		return;
+	}
+
+	var json = JSON.stringify(produto);
+	
+//	json = JSON.parse(json);
 
 	var xmlhttp = new XMLHttpRequest();
 	var url = base_url + "/produtos";
@@ -360,7 +371,7 @@ function cadastrarProduto(fileBase64) {
 	xmlhttp.upload.addEventListener("load", function() {
 		console.log('upload complete!');
 	}, false);
-	// progresso
+
 	xmlhttp.upload.addEventListener("progress", function(evt) {
 		if (evt.lengthComputable) {
 			console.log((evt.loaded / evt.total) * 100);
@@ -372,7 +383,7 @@ function cadastrarProduto(fileBase64) {
 	xmlhttp.onload = function(e) {
 		if (xmlhttp.status == 200) {
 			var obj = JSON.parse(xmlhttp.responseText);
-			window.location.href = "produtos.html";
+//			window.location.href = "produtos.html";
 		} else {
 			alert("Erro ao inserir o Produto");
 		}
@@ -516,10 +527,8 @@ function previewFile() {
 
 	reader.onloadend = function() {
 		preview.src = reader.result;
-		document.getElementById("crop-iamge").style.display = "flex";
+		document.getElementById("crop-iamge").style.display = "block";
 		image();
-		document.getElementById("image-preview").src = document
-				.getElementById("mostrarImagem").src;
 	}
 
 	if (file) {
@@ -541,9 +550,6 @@ function image() {
 			bgOpacity : 0.5,
 			bgColor : 'black',
 			addClass : 'jcrop-dark',
-			aspectRatio : 1,
-			boxWidth : 650,
-			boxHeight : 400
 		}, function() {
 			// Use the API to get the real image size
 			var bounds = this.getBounds();
@@ -555,21 +561,24 @@ function image() {
 
 		function updatePreview(c) {
 			if (parseInt(c.w) > 0) {
-				var rx = 100 / c.w;
-				var ry = 100 / c.h;
 
-				$('#image-preview').css({
-					width : Math.round(rx * boundx) + 'px',
-					height : Math.round(ry * boundy) + 'px',
-					marginLeft : '-' + Math.round(rx * c.x) + 'px',
-					marginTop : '-' + Math.round(ry * c.y) + 'px'
-				});
+				jQuery('#x1').val(c.x);
+				jQuery('#y1').val(c.y);
+				jQuery('#x2').val(c.x2);
+				jQuery('#y2').val(c.y2);
+				jQuery('#w').val(c.w);
+				jQuery('#h').val(c.h);
 			}
 		}
 		;
+
 	});
 }
-
-function crop() {
-
+function checkCoords() {
+	if (parseInt($('#w').val())) {
+		return true;
+	} else {
+		alert('Selecione a região para recortar.');
+		return false;
+	}
 }
