@@ -3,6 +3,17 @@ var getId = window.location.search.replace("?id=", "");
 var base_url = "http://localhost:8080/api-restiful/api";
 var base_img = "http://localhost:8080/api-restiful/img/produto-tres.jpg";
 
+var tamanhoImagens = {
+	produto : {
+		width : 397,
+		heigth : 209
+	},
+	servico : {
+		width : 606,
+		heigth : 256
+	}
+};
+
 if (getId === "") {
 	mostarCadastrar();
 } else {
@@ -106,43 +117,43 @@ function pegarPaginaAtual() {
 // xmlhttp.send(json);
 // }
 
-function alterarDestaque() {
-	var e = document.getElementById("status");
-	var status = e.options[e.selectedIndex].value;
-	var titulo = document.getElementById("titulo").value;
-	var descricao = document.getElementById("descricao").value;
-	var imagem = document.getElementById("imagem").value;
-	var token = pegar_token();
-
-	if (!validarCampos(titulo, status, descricao, imagem)) {
-		return;
-	}
-
-	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
-			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
-	var json = JSON.stringify(stringJson);
-	json = JSON.parse(json);
-
-	var xmlhttp = new XMLHttpRequest();
-	var url = base_url + "/destaques/" + getId;
-	xmlhttp.open("PUT", url, true);
-	xmlhttp.setRequestHeader("Content-type", "application/json");
-	xmlhttp.setRequestHeader("Authorization", token);
-
-	xmlhttp.onload = function(e) {
-		if (xmlhttp.status == 200) {
-			var obj = JSON.parse(xmlhttp.responseText);
-			window.location.href = "destaques.html";
-		} else {
-			alert("Erro ao alterar o Destaque");
-		}
-	}
-
-	xmlhttp.onerror = function(e) {
-		console.log("Deu erro");
-	}
-	xmlhttp.send(json);
-}
+// function alterarDestaque() {
+// var e = document.getElementById("status");
+// var status = e.options[e.selectedIndex].value;
+// var titulo = document.getElementById("titulo").value;
+// var descricao = document.getElementById("descricao").value;
+// var imagem = document.getElementById("imagem").value;
+// var token = pegar_token();
+//
+// if (!validarCampos(titulo, status, descricao, imagem)) {
+// return;
+// }
+//
+// var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
+// + '", "imagem": "' + imagem + '", "status": "' + status + '" }';
+// var json = JSON.stringify(stringJson);
+// json = JSON.parse(json);
+//
+// var xmlhttp = new XMLHttpRequest();
+// var url = base_url + "/destaques/" + getId;
+// xmlhttp.open("PUT", url, true);
+// xmlhttp.setRequestHeader("Content-type", "application/json");
+// xmlhttp.setRequestHeader("Authorization", token);
+//
+// xmlhttp.onload = function(e) {
+// if (xmlhttp.status == 200) {
+// var obj = JSON.parse(xmlhttp.responseText);
+// window.location.href = "destaques.html";
+// } else {
+// alert("Erro ao alterar o Destaque");
+// }
+// }
+//
+// xmlhttp.onerror = function(e) {
+// console.log("Deu erro");
+// }
+// xmlhttp.send(json);
+// }
 
 function alterarServico(fileBase64) {
 	var e = document.getElementById("status");
@@ -183,12 +194,9 @@ function alterarServico(fileBase64) {
 }
 
 function alterarProduto(fileBase64) {
-	var e = document.getElementById("status");
-	var status = e.options[e.selectedIndex].value;
-	var titulo = document.getElementById("titulo").value;
-	var descricao = document.getElementById("descricao").value;
-	var imagem = document.getElementById("imagem").value;
+
 	var hasAlteracaoImagem = true;
+
 	if (fileBase64 === undefined) {
 		imagem = document.getElementById("fileName").innerHTML;
 		hasAlteracaoImagem = false;
@@ -196,21 +204,39 @@ function alterarProduto(fileBase64) {
 		imagem = fileBase64;
 	}
 
-	var token = pegar_token();
-	if (!validarCampos(titulo, status, descricao, imagem)) {
+	var produto = {
+		titulo : document.getElementById("titulo").value,
+		status : document.getElementById("status").options[document
+				.getElementById("status").selectedIndex].value,
+		descricao : document.getElementById("descricao").value,
+		imagem : imagem,
+		dimensoes : {
+			"height" : Math.round(document.getElementById("h").value),
+			"width" : Math.round(document.getElementById("w").value),
+			"x1" : Math.round(document.getElementById("x1").value),
+			"x2" : Math.round(document.getElementById("x2").value),
+			"y1" : Math.round(document.getElementById("y1").value),
+			"y2" : Math.round(document.getElementById("y2").value)
+		}
+	};
+
+	if (!validarCampos(produto.titulo, produto.status, produto.descricao,
+			produto.imagem)) {
 		return;
 	}
 
-	var stringJson = '{ "titulo": "' + titulo + '", "descricao": "' + descricao
-			+ '", "imagem": "' + imagem + '", "status": "' + status + '" }';
-	var json = JSON.stringify(stringJson);
-	json = JSON.parse(json);
+	if (!checkCoords()) {
+		alert("Recorte a imagem");
+		return;
+	}
+
+	var json = JSON.stringify(produto);
 
 	var xmlhttp = new XMLHttpRequest();
 	var url = base_url + "/produtos/" + getId + "/" + hasAlteracaoImagem;
 	xmlhttp.open("PUT", url, true);
 	xmlhttp.setRequestHeader("Content-type", "application/json");
-	xmlhttp.setRequestHeader("Authorization", token);
+	xmlhttp.setRequestHeader("Authorization", pegar_token());
 
 	xmlhttp.upload.addEventListener("load", function() {
 		console.log('upload complete!');
@@ -360,8 +386,8 @@ function cadastrarProduto(fileBase64) {
 	}
 
 	var json = JSON.stringify(produto);
-//	console.log(json);	
-//	json = JSON.parse(json);
+	// console.log(json);
+	// json = JSON.parse(json);
 
 	var xmlhttp = new XMLHttpRequest();
 	var url = base_url + "/produtos";
@@ -541,6 +567,15 @@ function previewFile() {
 
 function image() {
 	jQuery(function($) {
+		var width, heitgh;
+
+		if (pegarPaginaAtual() === "servico") {
+			width = tamanhoImagens.servico.width;
+			heitgh = tamanhoImagens.servico.heitgh;
+		} else {
+			width = tamanhoImagens.produto.width;
+			heitgh = tamanhoImagens.produto.heitgh;
+		}
 
 		var api, boundx, boundy;
 
@@ -549,6 +584,8 @@ function image() {
 			onSelect : updatePreview,
 			bgOpacity : 0.5,
 			bgColor : 'black',
+			minSize : [ width, heitgh ],
+			maxSize : [ width, heitgh ],
 			addClass : 'jcrop-dark',
 		}, function() {
 			// Use the API to get the real image size
@@ -574,6 +611,7 @@ function image() {
 
 	});
 }
+
 function checkCoords() {
 	if (parseInt($('#w').val())) {
 		return true;
