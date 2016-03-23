@@ -340,12 +340,12 @@ function cadastrarProduto(fileBase64) {
 		descricao : document.getElementById("descricao").value,
 		imagem : fileBase64,
 		dimensoes : {
-			"height" : document.getElementById("h").value,
-			"width" : document.getElementById("w").value,
-			"x1" : document.getElementById("x1").value,
-			"x2" : document.getElementById("x2").value,
-			"y1" : document.getElementById("y1").value,
-			"y2" : document.getElementById("y2").value
+			"height" : Math.round(document.getElementById("h").value),
+			"width" : Math.round(document.getElementById("w").value),
+			"x1" : Math.round(document.getElementById("x1").value),
+			"x2" : Math.round(document.getElementById("x2").value),
+			"y1" : Math.round(document.getElementById("y1").value),
+			"y2" : Math.round(document.getElementById("y2").value)
 		}
 	};
 
@@ -360,7 +360,7 @@ function cadastrarProduto(fileBase64) {
 	}
 
 	var json = JSON.stringify(produto);
-	
+//	console.log(json);	
 //	json = JSON.parse(json);
 
 	var xmlhttp = new XMLHttpRequest();
@@ -383,7 +383,7 @@ function cadastrarProduto(fileBase64) {
 	xmlhttp.onload = function(e) {
 		if (xmlhttp.status == 200) {
 			var obj = JSON.parse(xmlhttp.responseText);
-//			window.location.href = "produtos.html";
+			// window.location.href = "produtos.html";
 		} else {
 			alert("Erro ao inserir o Produto");
 		}

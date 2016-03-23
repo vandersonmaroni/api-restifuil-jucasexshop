@@ -8,8 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import com.maroni.util.util.DimensoesImagem;
 
 
 /**
@@ -39,6 +42,9 @@ public class Servico implements Serializable {
 
 	private byte status;
 
+	@Transient
+	private DimensoesImagem dimensoes;
+	
 	public Servico() {
 	}
 
@@ -88,6 +94,20 @@ public class Servico implements Serializable {
 
 	public void setStatus(byte status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the dimensoes
+	 */
+	public DimensoesImagem getDimensoes() {
+		return dimensoes;
+	}
+
+	/**
+	 * @param dimensoes the dimensoes to set
+	 */
+	public void setDimensoes(DimensoesImagem dimensoes) {
+		this.dimensoes = dimensoes;
 	}
 
 	/* (non-Javadoc)

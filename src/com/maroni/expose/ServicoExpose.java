@@ -16,33 +16,33 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.maroni.TiposDeClassesEnum;
 import com.maroni.model.JsonTotal;
 import com.maroni.model.Servico;
 import com.maroni.service.ServicoService;
 import com.maroni.util.util.ImagemUtil;
 
-
 @Path("/servicos")
 @RequestScoped
-public class ServicoExpose implements Serializable{
+public class ServicoExpose implements Serializable {
 	private static final long serialVersionUID = -725714741613772422L;
 
 	@Inject
 	private ServicoService service;
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Servico> buscarTodos(){
+	public List<Servico> buscarTodos() {
 		return service.findAll();
 	}
-	
+
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Servico buscarPorId(@PathParam("id") String id){
+	public Servico buscarPorId(@PathParam("id") String id) {
 		return service.findById(Integer.parseInt(id));
 	}
-	
+
 	@GET
 	@Path("{quantidade}/{quantidadeMaximaPorPagina}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -59,28 +59,31 @@ public class ServicoExpose implements Serializable{
 		json.setTotal((Long) quantidadeTotalDeDestaques);
 		return Response.ok(json, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response cadastrar(Servico servico){
-		servico.setImagem(new ImagemUtil().converterBase64ParaImagem(servico.getImagem()));
+	public Response cadastrar(Servico servico) {
+		servico.setImagem(new ImagemUtil().geraImagem(servico.getImagem(), servico.getDimensoes(), TiposDeClassesEnum.SERVICO));
 		service.save(servico);
 		return Response.ok(servico, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@PUT
-	@Path("{id}")
+	@Path("{id}/{hasAlteracaoImagem}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response alterar(@PathParam("id") String id, Servico servico) {
+	public Response alterar(@PathParam("id") String id, @PathParam("hasAlteracaoImagem") boolean hasAlteracaoImagem, Servico servico) {
 		servico.setId(Integer.parseInt(id));
+		if (hasAlteracaoImagem) {
+			servico.setImagem(new ImagemUtil().geraImagem(servico.getImagem(), servico.getDimensoes(), TiposDeClassesEnum.SERVICO));
+		}
 		service.update(servico);
 		return Response.ok(servico, MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@DELETE
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response remover(@PathParam("id") String id){
+	public Response remover(@PathParam("id") String id) {
 		service.delete(Integer.parseInt(id));
 		return Response.ok(MediaType.APPLICATION_JSON).build();
 	}
