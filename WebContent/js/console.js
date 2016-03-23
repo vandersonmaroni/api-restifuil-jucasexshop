@@ -409,7 +409,7 @@ function cadastrarProduto(fileBase64) {
 	xmlhttp.onload = function(e) {
 		if (xmlhttp.status == 200) {
 			var obj = JSON.parse(xmlhttp.responseText);
-			// window.location.href = "produtos.html";
+			 window.location.href = "produtos.html";
 		} else {
 			alert("Erro ao inserir o Produto");
 		}
@@ -567,14 +567,14 @@ function previewFile() {
 
 function image() {
 	jQuery(function($) {
-		var width, heitgh;
+		var width, heigth;
 
 		if (pegarPaginaAtual() === "servico") {
 			width = tamanhoImagens.servico.width;
-			heitgh = tamanhoImagens.servico.heitgh;
+			heigth = tamanhoImagens.servico.heigth;
 		} else {
 			width = tamanhoImagens.produto.width;
-			heitgh = tamanhoImagens.produto.heitgh;
+			heigth = tamanhoImagens.produto.heigth;
 		}
 
 		var api, boundx, boundy;
@@ -584,8 +584,8 @@ function image() {
 			onSelect : updatePreview,
 			bgOpacity : 0.5,
 			bgColor : 'black',
-			minSize : [ width, heitgh ],
-			maxSize : [ width, heitgh ],
+			minSize : [ width, heigth ],
+			maxSize : [ width, heigth ],
 			addClass : 'jcrop-dark',
 		}, function() {
 			// Use the API to get the real image size
